@@ -9,10 +9,10 @@ RUN apt-get update && \
     echo "VERSION_ID is: $VERSION_ID" && \
     wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
-    apt-get install -y powershell && \
-    rm packages-microsoft-prod.deb && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    #apt-get install -y powershell && \
+    #rm packages-microsoft-prod.deb && \
+    #apt-get clean && \
+    #rm -rf /var/lib/apt/lists/*
 
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
