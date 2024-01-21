@@ -9,7 +9,7 @@ RUN apt-get update && \
     echo "VERSION_ID is: $VERSION_ID" && \
     wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb
-    #apt-get install -y powershell && \
+    apt-get install -y powershell && \
     #rm packages-microsoft-prod.deb && \
     #apt-get clean && \
     #rm -rf /var/lib/apt/lists/*
