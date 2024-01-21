@@ -8,8 +8,8 @@ RUN apt-get update && \
     export VERSION_ID=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2 | tr -d '"') && \
     echo "VERSION_ID is: $VERSION_ID" && \
     wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb
-    apt-get install -y powershell && \
+    dpkg -i packages-microsoft-prod.deb && \
+    apt-get install -y powershell
     #rm packages-microsoft-prod.deb && \
     #apt-get clean && \
     #rm -rf /var/lib/apt/lists/*
