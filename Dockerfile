@@ -7,14 +7,12 @@ RUN apt-get update && \
     apt-get install -y curl jq wget apt-transport-https software-properties-common && \
     export VERSION_ID=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2 | tr -d '"') && \
     echo "VERSION_ID is: $VERSION_ID" && \
-    wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb && \
-    #ls -l && \
+    wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb
     #apt-get install -y powershell && \
     #rm packages-microsoft-prod.deb && \
     #apt-get clean && \
     #rm -rf /var/lib/apt/lists/*
-#RUN dpkg -i packages-microsoft-prod.deb
 
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
