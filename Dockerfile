@@ -5,7 +5,7 @@ USER root
 # Update and install all packages
 RUN apt-get update && \
     apt-get install -y curl jq wget apt-transport-https software-properties-common && \
-    source /etc/os-release && \
+    export VERSION_ID=$(cat /etc/os-release | grep VERSION_ID | cut -d= -f2) && \
     wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     apt-get install -y powershell && \
@@ -19,4 +19,3 @@ RUN chmod +x ./entrypoint.sh
 USER runner
 
 ENTRYPOINT ["./entrypoint.sh"]
-
