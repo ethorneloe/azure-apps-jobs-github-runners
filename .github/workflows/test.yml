@@ -1,0 +1,12 @@
+name: Manual Sleep Workflow
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  sleep-job:
+    runs-on: self-hosted
+    steps:
+      - name: Sleep for 2 minutes
+        run: Start-Sleep -Seconds 120
+        shell: pwsh
