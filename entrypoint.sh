@@ -42,5 +42,5 @@ registration_token=$(curl -X POST -fsSL \
   "$REGISTRATION_TOKEN_API_URL" \
   | jq -r '.token')
 
-# Register the ephemeral runner
+# Register the ephemeral runner to run the job (--ephemeral ensures deregistration post job execution)
 ./config.sh --url $REPO_URL --token $registration_token --unattended --ephemeral && ./run.sh
