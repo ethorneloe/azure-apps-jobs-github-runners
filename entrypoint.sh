@@ -25,7 +25,6 @@ header_payload="${header}.${payload}"
 signature=$(openssl dgst -sha256 -sign <(echo -n "${PEM}") <(echo -n "${header_payload}") | b64enc)
 
 jwt="${header_payload}.${signature}"
-printf '%s\n' "JWT: $jwt"
 
 # Get an access token from the API using the installation ID of the GitHub app.
 access_token=$(curl -X POST -fsSL \
