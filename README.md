@@ -9,7 +9,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 # Prerequisites
 - An Azure subscription with priviledged access.
 - A GitHub account.
-- Familiarity with Azure resource deployment, GitHub repo configuration.
+- Familiarity with Azure resource deployment and GitHub repo configuration.
 
 # Advantages of Azure Container Apps Jobs
 - **Ephemeral Execution** - Each job runs in its own container which is created and destroyed whenever the job needs to execute.
@@ -38,6 +38,8 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
         - `Self-hosted runners` - `Read and write`
 
     Note: Later on, in the container apps job settings, the KEDA scaler can be configured for repo or org scope.
+8. Finally, select `Only on this account` and then click on `Create GitHub App`.
+9. After the GitHub app is created there will be a 6 digit App ID. Take note of this as it will be used later on when creating the Azure apps job.
 
 
 
