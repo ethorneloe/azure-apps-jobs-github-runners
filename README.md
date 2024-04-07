@@ -40,10 +40,11 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 
     Note: Later on, in the container apps job settings, the KEDA scaler can be configured for repo or org scope.
 8. Finally, select `Only on this account` and then click on `Create GitHub App`.
-9. The new GitHub app will be created, and there will be a notification to create a new private key. Click that link and create a new key.
-    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/156e7169-3421-4a3a-baa7-a9156323cc85)
-10. Now we need to install the GitHub app so that 
-11. After the GitHub app is created there will be a 6 digit App ID. Take note of this as it will be used later on when creating the Azure apps job.
+9. There should be a notification to create a new private key at the top of the screen after your app is created. Click that link and create a new key.  Otherwise you can scroll down the page to the private keys section.
+10. Now that the GitHub app is created, we need to install it and select the repos it will be available to.  Click on `Install App` and select the account to install the app to.  Depending on the context 
+
+
+12. After the GitHub app is created there will be a 6 digit App ID. Take note of this as it will be used later on when creating the Azure apps job.
 
 
 
