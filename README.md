@@ -22,10 +22,11 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 # Configuration Steps
 
 ## GitHub 
-1. Create a copy of this repo in your GitHub account.  
+1. Create a copy of this repo.  
 [![Create a Copy](https://img.shields.io/badge/-Create%20a%20Copy-darkgreen)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/generate)
 3. Click on your GitHub profile icon at the top right, and go to `Settings -> Developer Settings -> GitHub Apps` and select `New GitHub App`
-4. Give your app a name such as `Azure KEDA Scaled Runners`.  
+   *Note - If you want this app to be available in your GitHub Organisation, then you need to navigate to the settings for your GitHub Org, and then perform the remaining steps below from the org-based developer settings, rather than your personal developer settings.*
+5. Give your app a name such as `Azure KEDA Scaled Runners`.  
    The website field isn't important to get the GitHub app working, it is just there to provide an option for people to get more informoation about your GitHub App.  You can just use `https://github.com` but another website might be more appropriate for your use case.
 6. This GitHub App doesn't need a webhook, so that can be left unticked.
 7. For the permissions, we will need the following:  
@@ -39,7 +40,10 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 
     Note: Later on, in the container apps job settings, the KEDA scaler can be configured for repo or org scope.
 8. Finally, select `Only on this account` and then click on `Create GitHub App`.
-9. After the GitHub app is created there will be a 6 digit App ID. Take note of this as it will be used later on when creating the Azure apps job.
+9. The new GitHub app will be created, and there will be a notification to create a new private key. Click that link and create a new key.
+    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/156e7169-3421-4a3a-baa7-a9156323cc85)
+10. Now we need to install the GitHub app so that 
+11. After the GitHub app is created there will be a 6 digit App ID. Take note of this as it will be used later on when creating the Azure apps job.
 
 
 
