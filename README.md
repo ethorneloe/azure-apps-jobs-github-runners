@@ -40,13 +40,22 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 
     Note: Later on, in the container apps job settings, the KEDA scaler can be configured for repo or org scope.
 8. Finally, select `Only on this account` and then click on `Create GitHub App`.
-9. There should be a notification to create a new private key at the top of the screen after your app is created. Click that link and create a new key.  Otherwise you can scroll down the page to the private keys section.
-10. Now that the GitHub app is created, we need to install it and select the repos it will be available to.  Click on `Install App` and select the account to install the app to.  Depending on the context 
+9. After the app is created, there should be a notification to create a new private key at the top of the screen. Click that link and select `Generate a private key`. If there was no notification, simply scroll down the page to the private keys section.  The private key will automatically download into your browser's downloads directory.  Move that to somewhere safe and take note of the filepath, which we will use later with the Azure apps job.
+10. At the top of the GitHub App config page, there will be an App ID.  Take note of this as it will be used later for the Azure apps job.
+11. Now that the GitHub app is created, we must install it to an account and select the repos it will be available to.  Click on `Install App` at the left-side of the GitHub App settings page, select the account to install the app on, and click on `Install`.  
+    *Note - Depending on your context you will be choosing a personal account or a GitHub Organisation. Also note that if your app is private and you created your GitHub app with an organisation context, and you want to do this in multiple orgs under the same Enterprise then you will need to create and deploy the app in each org in your GitHub Enterprise instance.*
+12. Now select the repos you want this app to work with.  As a minimum, select the repo you created earlier from this template repo and click on `Install`.
+13.  You will now see the config page representing the installation of the app.  The URL should look similar to this:     
+```
+https://github.com/settings/installations/12345678
+```  
+Take note of the last 8 digits of this URL as that is the `InstallationID` of the app we will use later on for configuring the Azure apps job.
 
 
-12. After the GitHub app is created there will be a 6 digit App ID. Take note of this as it will be used later on when creating the Azure apps job.
-
-
+14.  If all has gone well, you should have a new GitHub App installed to your account(*personal or org based on your choice*), and you should have:
+  - An `App ID`
+  - An `Installation ID`
+  - A filepath to the GitHub App private key saved earlier on.
 
 ## Azure
 
