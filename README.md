@@ -20,13 +20,12 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 # Solution Diagram
 
 # Configuration Steps
-Before getting started, feel free to create a copy of this repo in your GitHub account and continue the steps from there.
-[![Create a Copy](https://img.shields.io/badge/-Use%20This%20Template-brightgreen)](https://github.com/ethorneloe/azure-apps-jobs-github-runners)
-
 
 ## GitHub 
+1. Create a copy of this repo in your GitHub account
+[![Create a Copy](https://img.shields.io/badge/-Use%20This%20Template-brightgreen)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/generate)
+2. Click on your GitHub profile icon at the top right, and go to `Settings -> Developer Settings -> GitHub Apps` and select `New GitHub App`
 
-### Create a new repo
 
 
 ## Azure
