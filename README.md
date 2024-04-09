@@ -97,16 +97,16 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
    PowerShell    
    ```powershell
-   $random6digits = -join (('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz').ToCharArray() | Get-Random -Count 6) `
-   $CONTAINER_IMAGE_NAME='github-actions-runner:1.0' `
-   $CONTAINER_REGISTRY_NAME="acrappsjobsgithubrunners$random6digits" `
-   $CONTAINER_APPS_ENVIRONMENT_NAME="cae-apps-jobs-github-runners-$random6digits" `
-   $CONTAINER_APPS_JOB_NAME="caj-apps-jobs-github-runners-$random6digits" `
-   $KEYVAULT_NAME="kv-caj-gh-runners-$random6digits" `
-   $KEYVAULT_SECRET_NAME="github-app-key-1" `
-   $LOG_ANALYTICS_WORKSPACE_NAME = "workspace-apps-jobs-github-runners-$random6digits" `
-   $REPO_NAME='azure-apps-jobs-github-runners' `
-   $RESOURCE_GROUP_NAME="rg-apps-jobs-github-runners-$random6digits" `
+   $random6digits = -join (('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz').ToCharArray() | Get-Random -Count 6)
+   $CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
+   $CONTAINER_REGISTRY_NAME="acrappsjobsgithubrunners$random6digits"
+   $CONTAINER_APPS_ENVIRONMENT_NAME="cae-apps-jobs-github-runners-$random6digits"
+   $CONTAINER_APPS_JOB_NAME="caj-apps-jobs-github-runners-$random6digits"
+   $KEYVAULT_NAME="kv-caj-gh-runners-$random6digits"
+   $KEYVAULT_SECRET_NAME="github-app-key-1"
+   $LOG_ANALYTICS_WORKSPACE_NAME = "workspace-apps-jobs-github-runners-$random6digits"
+   $REPO_NAME='azure-apps-jobs-github-runners'
+   $RESOURCE_GROUP_NAME="rg-apps-jobs-github-runners-$random6digits"
    $UAMI_NAME="uami-apps-jobs-github-runners-$random6digits"
    ```
       
