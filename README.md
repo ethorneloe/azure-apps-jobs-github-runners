@@ -100,7 +100,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
    $CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'(has to be unique)
    $CONTAINER_APPS_ENVIRONMENT_NAME='cae-apps-jobs-github-runners'
-   $JOB_NAME='caj-apps-jobs-github-runners'
+   $CONTAINER_APPS_JOB_NAME='caj-apps-jobs-github-runners'
    $KEYVAULT_NAME='kv-caj-github-runners'(has to be unique)
    $KEYVAULT_SECRET_NAME='github-app-key-1'
    $LOG_ANALYTICS_WORKSPACE_NAME = 'workspace-apps-jobs-github-runners'
@@ -114,7 +114,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
    CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
    CONTAINER_APPS_ENVIRONMENT_NAME='cae-apps-jobs-github-runners'
-   JOB_NAME='caj-apps-jobs-github-runners'
+   CONTAINER_APPS_JOB_NAME='caj-apps-jobs-github-runners'
    KEYVAULT_NAME='kv-caj-github-runners'
    KEYVAULT_SECRET_NAME='github-app-key-1'
    LOG_ANALYTICS_WORKSPACE_NAME = 'workspace-apps-jobs-github-runners'
@@ -223,7 +223,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
 1. Create the apps job(caj).
    ```
-   az containerapp job create -n "$CONTAINER_APPS_JOB_NAME" -g "$RESOURCE_GROUP_NAME" --environment "$CONTAINER_APPS_ENVIRONMENT_NAME" `
+   az containerapp job create --name "$CONTAINER_APPS_JOB_NAME" --resource-group "$RESOURCE_GROUP_NAME" --environment "$CONTAINER_APPS_ENVIRONMENT_NAME" `
     --trigger-type Event `
     --replica-timeout 1800 `
     --replica-retry-limit 0 `
