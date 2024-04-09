@@ -132,18 +132,11 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
    ```
-9. 
-
-
-Vars for sub, rg, keyvault name, uami name, pem keyvault ref
-
-Create the resource group
-
-Create the keyvault
-
-Create the secret in the keyvault for the pem, and place the ref into a var
-
-Create the uami
+9. Save the key vault ref to the secret in a variable as it will be used later.
+   ```
+   $KEYVAULT_SECRET_REF = az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id
+   ```
+10. Create a user-assigned managed identity.  This will be used to access the secret, the container registry later on, and also can be used inside the 
 
 Assign the uami access to the keyvault secrets user role
 
