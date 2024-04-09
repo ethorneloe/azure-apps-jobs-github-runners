@@ -83,6 +83,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $REPO_OWNER='<Your GitHub Account Name>'
    $SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
+   
    Bash
    ```Bash
    GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
@@ -98,19 +99,20 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```powershell
    $CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
    $CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
-   $ENVIRONMENT='cae-apps-jobs-github-runners'
+   $CONTAINER_APPS_ENVIRONMENT_NAME='cae-apps-jobs-github-runners'
    $JOB_NAME='caj-apps-jobs-github-runners'
    $KEYVAULT_NAME='kv-caj-github-runners'
    $KEYVAULT_SECRET_NAME='github-app-key-1'
    $REPO_NAME='azure-apps-jobs-github-runners'
    $RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
    $UAMI_NAME='uami-apps-jobs-github-runners'
-   ```    
+   ```
+      
    Bash    
    ```bash
    CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
    CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
-   ENVIRONMENT='cae-apps-jobs-github-runners'
+   CONTAINER_APPS_ENVIRONMENT_NAME='cae-apps-jobs-github-runners'
    JOB_NAME='caj-apps-jobs-github-runners'
    KEYVAULT_NAME='kv-caj-github-runners'
    KEYVAULT_SECRET_NAME='github-app-key-1'
@@ -118,22 +120,27 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
    UAMI_NAME='uami-apps-jobs-github-runners'
    ```
+   
 1. Set your subscription context.    
    ```
    az account set --subscription $SUBSCRIPTION_ID --output none
    ```
+   
 1. Create a new resource group.
    ```
    az group create --name $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
+   
 1. Create the key vault.    
    ```
    az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
+   
 1. Create a new secret in the key vault for the `pem` content.       
    ```
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
    ```
+   
 1. Save the key vault secret ref (URL where the secret resides) in a variable as it will be used later.
    
    PowerShell
@@ -145,10 +152,12 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```bash
    KEYVAULT_SECRET_URI=$(az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id --output tsv)
    ```
+   
 1. Create a user-assigned managed identity(uami).  This will be used to access the secret, the container registry later on, and also can be used inside the GitHub workflows that run in the container apps job for performing operations in Azure.
    ```
    az identity create --resource-group $RESOURCE_GROUP_NAME --name $UAMI_NAME --location $LOCATION --output none
    ```
+   
 1. Get the `clientId` of the `uami`.
 
    PowerShell
@@ -160,6 +169,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```bash
    UAMI_CLIENT_ID=$(az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId --output tsv)
    ```
+   
 1. Create a `Key Vault Secrets User` role assignment on the key vault for the `uami`. Note the value used with `--role` which corresponds to the `Key Vault Secrets User` role. Microsoft recommends using the id for roles in the event they are renamed.
    ```
    az role assignment create --role '4633458b-17de-408a-b874-0445c86b69e6' --assignee $UAMI_CLIENT_ID --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME --output none
@@ -171,6 +181,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --sku Basic --output none
    ```
+   
 1. Get the resource ID of the `acr` for role assignment 
 
    PowerShell
@@ -182,18 +193,22 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```bash
    ACR_RESOURCE_ID=$(az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv)
    ```
-1. Grant the `uami` access to the `acr`.
+   
+1. Grant the `uami` access to the `acr` to ensure the container apps job can pull images from the `acr`.
    ```
    az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
    ```
+   
 1. Create a new container based on the Dockerfile in your copy of this repo.
    ```
    az acr build --registry "$CONTAINER_REGISTRY_NAME" --image "$CONTAINER_IMAGE_NAME" --file "Dockerfile" "https://github.com/$REPO_OWNER/$REPO_NAME.git" --output none
    ```
    
-
-Create the container apps env (not public)
-
+1. Create the container apps environment for the apps job.
+   ```
+   az containerapp env create --name "$CONTAINER_APPS_ENVIRONMENT_NAME" --resource-group "$RESOURCE_GROUP_NAME" --location "$LOCATION" --output none
+   ```
+   
 Create the container apps job with the required secrets and keyvault ref, github data and all that stuff.  Talk about options for repos and labels here.  self-hosted is the default which is what will use here.
 
 Create the LAW
