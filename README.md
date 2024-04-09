@@ -169,27 +169,28 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 1. Create the container registry(acr).
    ```
-   az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --sku Basic --output -none
+   az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --sku Basic --output none
    ```
-1. Assign the `uami` access to the `acr`.
+1. Get the resource ID of the `acr` for role assignment 
 
    PowerShell
    ```powershell
-   $ACR_RESOURCE_ID = az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv `
-   az role assignment create --assignee $UAMI_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-   ```
-
-   az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
    $ACR_RESOURCE_ID = az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv
+   ```
+   
    Bash
    ```bash
-   ACR_RESOURCE_ID=$(az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv) \
-   az role assignment create --assignee $UAMI_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+   ACR_RESOURCE_ID=$(az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv)
    ```
-
-Assign the uami access to the acr
-
-Create the container in the acr
+1. Grant the `uami` access to the `acr`.
+   ```
+   az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
+   ```
+1. Create a new container based on the Dockerfile in your copy of this repo.
+   ```
+   az acr build --registry "$CONTAINER_REGISTRY_NAME" --image "$CONTAINER_IMAGE_NAME" --file "Dockerfile" "https://github.com/$REPO_OWNER/$REPO_NAME.git" --output none
+   ```
+   
 
 Create the container apps env (not public)
 
