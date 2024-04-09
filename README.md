@@ -210,6 +210,12 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az monitor log-analytics workspace create --resource-group $RESOURCE_GROUP_NAME --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME --location $LOCATION --output none
    ```
+
+1. Get the `law` ID and key.
+   ```
+   $LOG_ANALYTICS_WORKSPACE_ID = az monitor log-analytics workspace show --query id --resource-group $RESOURCE_GROUP_NAME --workspace-name $LOG_ANALYTICS_WORKSPACE --output tsv
+   $LOG_ANALYTICS_KEY = az monitor log-analytics workspace get-shared-keys --resource-group $RESOURCE_GROUP_NAME --workspace-name $LOG_ANALYTICS_WORKSPACE --query primarySharedKey --output tsv
+   ```
    
 1. Create the `cae` for the apps job.
    ```
