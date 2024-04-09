@@ -70,7 +70,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az login --only-show-errors
    ```
-2. Fill in the values for the variables below and execute.
+1. Fill in the values for the variables below and execute.
     
    PowerShell
    ```powershell
@@ -90,7 +90,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    REPO_OWNER='<Your GitHub Account Name>'
    SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
-4. Execute this as is, or feel free to change the naming convention as required.
+1. Execute this as is, or feel free to change the naming convention as required.
    
    PowerShell    
    ```powershell
@@ -116,27 +116,31 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
    UAMI_NAME='uami-apps-jobs-github-runners'
    ```
-5. Set your subscription context.    
+1. Set your subscription context.    
    ```
    az account set --subscription $SUBSCRIPTION_ID --output none
    ```
-6. Create a new resource group.
+1. Create a new resource group.
    ```
    az group create --name $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
-7. Create the key vault.    
+1. Create the key vault.    
    ```
    az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
-8. Create a new secret in the keyvault for the PEM content.       
+1. Create a new secret in the keyvault for the PEM content.       
    ```
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
    ```
-9. Save the key vault ref to the secret in a variable as it will be used later.
+1. Save the key vault ref to the secret in a variable as it will be used later.
    ```
    $KEYVAULT_SECRET_REF = az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id
    ```
-10. Create a user-assigned managed identity.  This will be used to access the secret, the container registry later on, and also can be used inside the 
+1. Create a user-assigned managed identity.  This will be used to access the secret, the container registry later on, and also can be used inside the GitHub workflows that run in the container apps job for performing operations in Azure.
+   ```
+   az identity create --resource-group $RESOURCE_GROUP_NAME --name $UAMI_NAME --location $LOCATION --output none
+   ```
+
 
 Assign the uami access to the keyvault secrets user role
 
