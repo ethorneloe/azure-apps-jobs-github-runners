@@ -234,7 +234,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     --image "$CONTAINER_REGISTRY_NAME.azurecr.io/$CONTAINER_IMAGE_NAME" `
     --min-executions 0 `
     --max-executions 10 `
-    --mi-user-assigned $UAMI_CLIENT_ID `
+    --mi-user-assigned $UAMI_RESOURCE_ID `
     --polling-interval 30 `
     --registry-identity $UAMI_RESOURCE_ID `
     --scale-rule-name "github-runner" `
@@ -243,9 +243,10 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     --scale-rule-auth "appKey=pem" `
     --cpu "2.0" `
     --memory "4Gi" `
-    --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_CLIENT_ID" `
+    --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" `
     --env-vars "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" `
-    --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io"
+    --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" `
+    --output none
    ```
 
    
