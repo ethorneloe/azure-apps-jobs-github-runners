@@ -124,11 +124,15 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az group create --name $RESOURCE_GROUP_NAME --location $LOCATION
    ```
-7. Create a new secret in the keyvault for the PEM content    
+7. Create the keyvault.    
+   ```
+   az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION
+   ```
+8. Create a new secret in the keyvault for the PEM content    
    ```
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH | Out-Null
    ```
-8. 
+9. 
 
 
 Vars for sub, rg, keyvault name, uami name, pem keyvault ref
