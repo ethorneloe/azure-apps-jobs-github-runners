@@ -98,7 +98,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
    $ENVIRONMENT='cae-apps-jobs-github-runners'
    $JOB_NAME='caj-apps-jobs-github-runners'
-   $KEYVAULT_NAME='kv-apps-jobs-github-runners'
+   $KEYVAULT_NAME='kv-caj-github-runners'
    $KEYVAULT_SECRET_NAME='github-app-key-1'
    $REPO_NAME='azure-apps-jobs-github-runners'
    $RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
@@ -110,7 +110,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
    ENVIRONMENT='cae-apps-jobs-github-runners'
    JOB_NAME='caj-apps-jobs-github-runners'
-   KEYVAULT_NAME='kv-apps-jobs-github-runners'
+   KEYVAULT_NAME='kv-caj-github-runners'
    KEYVAULT_SECRET_NAME='github-app-key-1'
    REPO_NAME='azure-apps-jobs-github-runners'
    RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
@@ -124,11 +124,11 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az group create --name $RESOURCE_GROUP_NAME --location $LOCATION
    ```
-7. Create the keyvault.    
+7. Create the key vault.    
    ```
    az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION
    ```
-8. Create a new secret in the keyvault for the PEM content    
+8. Create a new secret in the keyvault for the PEM content.       
    ```
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH | Out-Null
    ```
