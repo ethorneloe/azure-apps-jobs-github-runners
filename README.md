@@ -18,7 +18,8 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 - **Flexibility and Independence** - Dockerfiles and entrypoints can be customised to suit different jobs with different dependencies.
 - **Auto-Scaling** - The KEDA scaler takes care of spinning up a new container whenever new jobs are queued.  Each job runs in its own container for parallel execution.
 
-# Solution Diagram
+# Architecture
+![keda-scaled-runners drawio (3)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/2f21154e-6643-4454-8967-0a045fe950ef)
 
 # Configuration Steps
 
