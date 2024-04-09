@@ -250,13 +250,6 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     --output none
    ```
 
-   
-   
-   
-Create the container apps job with the required secrets and keyvault ref, github data and all that stuff.  Talk about options for repos and labels here.  self-hosted is the default which is what will use here.
-
-Create the LAW
-
 Check the logs in the LAW after a few minutes.  Should see KEDA scaler has been built.
 
 ## Testing the Solution
