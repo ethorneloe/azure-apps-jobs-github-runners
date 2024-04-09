@@ -98,11 +98,12 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    PowerShell    
    ```powershell
    $CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
-   $CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
+   $CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'(has to be unique)
    $CONTAINER_APPS_ENVIRONMENT_NAME='cae-apps-jobs-github-runners'
    $JOB_NAME='caj-apps-jobs-github-runners'
-   $KEYVAULT_NAME='kv-caj-github-runners'
+   $KEYVAULT_NAME='kv-caj-github-runners'(has to be unique)
    $KEYVAULT_SECRET_NAME='github-app-key-1'
+   $LOG_ANALYTICS_WORKSPACE_NAME = 'workspace-apps-jobs-github-runners'
    $REPO_NAME='azure-apps-jobs-github-runners'
    $RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
    $UAMI_NAME='uami-apps-jobs-github-runners'
@@ -116,6 +117,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    JOB_NAME='caj-apps-jobs-github-runners'
    KEYVAULT_NAME='kv-caj-github-runners'
    KEYVAULT_SECRET_NAME='github-app-key-1'
+   LOG_ANALYTICS_WORKSPACE_NAME = 'workspace-apps-jobs-github-runners'
    REPO_NAME='azure-apps-jobs-github-runners'
    RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
    UAMI_NAME='uami-apps-jobs-github-runners'
@@ -141,7 +143,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
    ```
    
-1. Save the key vault secret ref (URL where the secret resides) in a variable as it will be used later.
+1. Save the key vault secret URI in a variable as it will be used later.
    
    PowerShell
    ```powershell
@@ -203,11 +205,17 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az acr build --registry "$CONTAINER_REGISTRY_NAME" --image "$CONTAINER_IMAGE_NAME" --file "Dockerfile" "https://github.com/$REPO_OWNER/$REPO_NAME.git" --output none
    ```
+
+1. Create a Log Analytics Workspace(law) for the Container Apps Environment(cae).
+   ```
+   az monitor log-analytics workspace create --resource-group $RESOURCE_GROUP_NAME --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME --location $LOCATION --output none
+   ```
    
-1. Create the container apps environment for the apps job.
+1. Create the `cae` for the apps job.
    ```
-   az containerapp env create --name "$CONTAINER_APPS_ENVIRONMENT_NAME" --resource-group "$RESOURCE_GROUP_NAME" --location "$LOCATION" --output none
+   az containerapp env create --name "$CONTAINER_APPS_ENVIRONMENT_NAME" --resource-group "$RESOURCE_GROUP_NAME" --location "$LOCATION" --output none --only-show-errors
    ```
+1. 
    
 Create the container apps job with the required secrets and keyvault ref, github data and all that stuff.  Talk about options for repos and labels here.  self-hosted is the default which is what will use here.
 
