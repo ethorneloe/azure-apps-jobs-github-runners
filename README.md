@@ -223,7 +223,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az containerapp env create --name $CONTAINER_APPS_ENVIRONMENT_NAME --resource-group $RESOURCE_GROUP_NAME --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID --logs-workspace-key $LOG_ANALYTICS_WORKSPACE_KEY  --location $LOCATION --output none --only-show-errors
    ```
-1. Create the apps job(caj).
+1. Create the apps job(caj).  
+   *Note - The `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
    ```
    az containerapp job create --name "$CONTAINER_APPS_JOB_NAME" --resource-group "$RESOURCE_GROUP_NAME" --environment "$CONTAINER_APPS_ENVIRONMENT_NAME" `
     --trigger-type Event `
