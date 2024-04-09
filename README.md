@@ -135,16 +135,30 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
    ```
 1. Save the key vault secret ref (URL where the secret resides) in a variable as it will be used later.
+   
+   PowerShell
+   ```powershell
+   $KEYVAULT_SECRET_URI = az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id --output tsv
    ```
-   $KEYVAULT_SECRET_URI = az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id
+   
+   Bash
+   ```bash
+   KEYVAULT_SECRET_URI=$(az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id --output tsv)
    ```
 1. Create a user-assigned managed identity(uami).  This will be used to access the secret, the container registry later on, and also can be used inside the GitHub workflows that run in the container apps job for performing operations in Azure.
    ```
    az identity create --resource-group $RESOURCE_GROUP_NAME --name $UAMI_NAME --location $LOCATION --output none
    ```
 1. Get the `clientId` of the `uami`.
+
+   PowerShell
+   ```powershell
+   $UAMI_CLIENT_ID = az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId --output tsv
    ```
-   $UAMI_CLIENT_ID = az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId
+
+   Bash
+   ```bash
+   UAMI_CLIENT_ID=$(az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId --output tsv)
    ```
 1. Create a `Key Vault Secrets User` role assignment on the key vault for the `uami`. Note the value used with `--role` which corresponds to the `Key Vault Secrets User` role. Microsoft recommends using the id for roles in the event they are renamed.
    ```
@@ -153,9 +167,22 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 ### Create Container-Related Resources and Log Analytics Workspace
 
-1. Create the container registry.
+1. Create the container registry(acr).
    ```
    az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --sku Basic --output -none
+   ```
+1. Assign the `uami` access to the `acr`.
+
+   PowerShell
+   ```powershell
+   $ACR_RESOURCE_ID = az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv `
+   az role assignment create --assignee $UAMI_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+   ```
+
+   Bash
+   ```bash
+   ACR_RESOURCE_ID=$(az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv) \
+   az role assignment create --assignee $UAMI_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d'
    ```
 
 Assign the uami access to the acr
