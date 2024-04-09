@@ -160,16 +160,18 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az identity create --resource-group $RESOURCE_GROUP_NAME --name $UAMI_NAME --location $LOCATION --output none
    ```
    
-1. Get the `clientId` of the `uami`.
+1. Get the `id` and `clientId` of the `uami`.
 
    PowerShell
    ```powershell
    $UAMI_CLIENT_ID = az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId --output tsv
+   $UAMI_RESOURCE_ID = az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query id --output tsv
    ```
 
    Bash
    ```bash
    UAMI_CLIENT_ID=$(az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId --output tsv)
+   UAMI_RESOURCE_ID=$(az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query id --output tsv)
    ```
    
 1. Create a `Key Vault Secrets User` role assignment on the key vault for the `uami`. Note the value used with `--role` which corresponds to the `Key Vault Secrets User` role. Microsoft recommends using the id for roles in the event they are renamed.
@@ -234,7 +236,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     --max-executions 10 `
     --mi-user-assigned $UAMI_CLIENT_ID `
     --polling-interval 30 `
-    --registry-identity $UAMI_CLIENT_ID `
+    --registry-identity $UAMI_RESOURCE_ID `
     --scale-rule-name "github-runner" `
     --scale-rule-type "github-runner" `
     --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
