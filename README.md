@@ -221,7 +221,32 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az containerapp env create --name $CONTAINER_APPS_ENVIRONMENT_NAME --resource-group $RESOURCE_GROUP_NAME --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID --logs-workspace-key $LOG_ANALYTICS_WORKSPACE_KEY  --location $LOCATION --output none --only-show-errors
    ```
-1. 
+1. Create the apps job(caj).
+   ```
+   az containerapp job create -n "$CONTAINER_APPS_JOB_NAME" -g "$RESOURCE_GROUP_NAME" --environment "$CONTAINER_APPS_ENVIRONMENT_NAME" `
+    --trigger-type Event `
+    --replica-timeout 1800 `
+    --replica-retry-limit 0 `
+    --replica-completion-count 1 `
+    --parallelism 1 `
+    --image "$CONTAINER_REGISTRY_NAME.azurecr.io/$CONTAINER_IMAGE_NAME" `
+    --min-executions 0 `
+    --max-executions 10 `
+    --mi-user-assigned $UAMI_CLIENT_ID `
+    --polling-interval 30 `
+    --scale-rule-name "github-runner" `
+    --scale-rule-type "github-runner" `
+    --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
+    --scale-rule-auth "appKey=pem" `
+    --cpu "2.0" `
+    --memory "4Gi" `
+    --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI" `
+    --env-vars "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" `
+    --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io"
+   ```
+
+   
+   
    
 Create the container apps job with the required secrets and keyvault ref, github data and all that stuff.  Talk about options for repos and labels here.  self-hosted is the default which is what will use here.
 
