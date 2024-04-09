@@ -234,6 +234,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     --max-executions 10 `
     --mi-user-assigned $UAMI_CLIENT_ID `
     --polling-interval 30 `
+    --registry-identity $UAMI_CLIENT_ID `
     --scale-rule-name "github-runner" `
     --scale-rule-type "github-runner" `
     --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
