@@ -213,7 +213,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
 1. Create the `cae` for the apps job.
    ```
-   az containerapp env create --name "$CONTAINER_APPS_ENVIRONMENT_NAME" --resource-group "$RESOURCE_GROUP_NAME" --location "$LOCATION" --output none --only-show-errors
+   az containerapp env create --name $CONTAINER_APPS_ENVIRONMENT_NAME --resourcegroup $RESOURCE_GROUP_NAME --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID --logs-workspace-key $LOG_ANALYTICS_WORKSPACE_KEY  --location $LOCATION --output none --only-show-errors
    ```
 1. 
    
