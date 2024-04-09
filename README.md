@@ -66,6 +66,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 ## Azure
 
+### Configure Variables, Key Vault, and User-Assigned Managed Identity
+
 1. Connect to Azure CLI.
    ```
    az login --only-show-errors
@@ -128,25 +130,33 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
-1. Create a new secret in the keyvault for the PEM content.       
+1. Create a new secret in the key vault for the `pem` content.       
    ```
    az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
    ```
-1. Save the key vault ref to the secret in a variable as it will be used later.
+1. Save the key vault secret ref (URL where the secret resides) in a variable as it will be used later.
    ```
-   $KEYVAULT_SECRET_REF = az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id
+   $KEYVAULT_SECRET_URI = az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id
    ```
-1. Create a user-assigned managed identity.  This will be used to access the secret, the container registry later on, and also can be used inside the GitHub workflows that run in the container apps job for performing operations in Azure.
+1. Create a user-assigned managed identity(uami).  This will be used to access the secret, the container registry later on, and also can be used inside the GitHub workflows that run in the container apps job for performing operations in Azure.
    ```
    az identity create --resource-group $RESOURCE_GROUP_NAME --name $UAMI_NAME --location $LOCATION --output none
    ```
+1. Get the `clientId` of the `uami`.
+   ```
+   $UAMI_CLIENT_ID = az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId
+   ```
+1. Create a `Key Vault Secrets User` role assignment on the key vault for the `uami`. Note the value used with `--role` which corresponds to the `Key Vault Secrets User` role. Microsoft recommends using the id for roles in the event they are renamed.
+   ```
+   az role assignment create --role '4633458b-17de-408a-b874-0445c86b69e6' --assignee $UAMI_CLIENT_ID --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME --output none
+   ```
 
+### Create Container-Related Resources and Log Analytics Workspace
 
-Assign the uami access to the keyvault secrets user role
-
-vars for the acr name, the apps env name, the apps job name, the container name
-
-Create the acr
+1. Create the container registry.
+   ```
+   az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --sku Basic --output -none
+   ```
 
 Assign the uami access to the acr
 
