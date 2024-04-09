@@ -68,7 +68,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 1. Connect to Azure CLI.
    ```
-   az login
+   az login --only-show-errors
    ```
 2. Fill in the values for the variables below and execute.
     
@@ -126,7 +126,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
 7. Create a new secret in the keyvault for the PEM content    
    ```
-   az keyvault secret set --vault-name $KEYVAULT_NAME --name KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILE_PATH | Out-Null
+   az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH | Out-Null
    ```
 8. 
 
