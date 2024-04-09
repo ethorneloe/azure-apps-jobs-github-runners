@@ -118,19 +118,19 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
 5. Set your subscription context.    
    ```
-   az account set --subscription $SUBSCRIPTION_ID
+   az account set --subscription $SUBSCRIPTION_ID --output none
    ```
 6. Create a new resource group.
    ```
-   az group create --name $RESOURCE_GROUP_NAME --location $LOCATION
+   az group create --name $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
 7. Create the key vault.    
    ```
-   az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION
+   az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
 8. Create a new secret in the keyvault for the PEM content.       
    ```
-   az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH | Out-Null
+   az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
    ```
 9. 
 
