@@ -66,7 +66,84 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 ## Azure
 
-1. 
+1. Connect to Azure CLI.
+   ```
+   az login
+   ```
+2. Fill in the values for the variables below and execute the command.    
+   PowerShell
+   ```powershell
+   $GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
+   $GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
+   $LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
+   $LOCATION='<Your Preferred Azure Location>'
+   $REPO_OWNER='<Your GitHub Account Name>'
+   $SUBSCRIPTION='<Your Subscription ID>'
+   ```
+   Bash
+   ```BASH
+   GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
+   GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
+   LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
+   LOCATION='<Your Preferred Azure Location>'
+   REPO_OWNER='<Your GitHub Account Name>'
+   SUBSCRIPTION='<Your Subscription ID>'
+   ```
+4. Execute the following to configure variables used throughtout the Azure resource creation process:    
 
+   PowerShell    
+   ```powershell
+   $CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
+   $CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
+   $ENVIRONMENT='cae-apps-jobs-github-runners'
+   $JOB_NAME='caj-apps-jobs-github-runners'
+   $KEYVAULT_NAME='kv-apps-jobs-github-runners'
+   $REPO_NAME='azure-apps-jobs-github-runners'
+   $RESOURCE_GROUP='rg-apps-jobs-github-runners'
+   $UAMI_NAME='uami-apps-jobs-github-runners'
+   ```    
+   Bash    
+   ```bash
+   CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
+   CONTAINER_REGISTRY_NAME='acrappsjobsgithubrunners'
+   ENVIRONMENT='cae-apps-jobs-github-runners'
+   JOB_NAME='caj-apps-jobs-github-runners'
+   KEYVAULT_NAME='kv-apps-jobs-github-runners'
+   REPO_NAME='azure-apps-jobs-github-runners'
+   RESOURCE_GROUP='rg-apps-jobs-github-runners'
+   UAMI_NAME='uami-apps-jobs-github-runners'
+   ```
+5. 
+
+
+Vars for sub, rg, keyvault name, uami name, pem keyvault ref
+
+Create the resource group
+
+Create the keyvault
+
+Create the secret in the keyvault for the pem, and place the ref into a var
+
+Create the uami
+
+Assign the uami access to the keyvault secrets user role
+
+vars for the acr name, the apps env name, the apps job name, the container name
+
+Create the acr
+
+Assign the uami access to the acr
+
+Create the container in the acr
+
+Create the container apps env (not public)
+
+Create the container apps job with the required secrets and keyvault ref, github data and all that stuff.  Talk about options for repos and labels here.  self-hosted is the default which is what will use here.
+
+Create the LAW
+
+Check the logs in the LAW after a few minutes.  Should see KEDA scaler has been built.
 
 ## Testing the Solution
+
+1. Run workflows in the repo and watch the runners get created in GitHub, along with the jobs being executed in Azure.  Show the empty list of runners once everything is completed.
