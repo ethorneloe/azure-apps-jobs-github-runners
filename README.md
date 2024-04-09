@@ -23,8 +23,6 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 
 # Configuration Steps
 
-
-
 ## GitHub 
 1. Create a copy of this repo.  
 [![Create a Copy](https://img.shields.io/badge/-Create%20a%20Copy-darkgreen)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/generate)
@@ -59,8 +57,12 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
   - An `Installation ID`
   - A filepath to the GitHub App private key saved earlier on.
 
-## Dockerfile
-The docker file in this repo uses GitHub's runner image from 
+## Docker
+The docker file in this repo uses GitHub's runner image taken from `ghcr.io/actions/actions-runner`.  From there `Powershell 7`, `Azure CLI`, `Az Module` are added and `entrypoint.sh` gets copied into the image, which is the script that will execute when the container spins up. This entrypoint script connects to the GitHub API with GitHub App-based authentication to register the ephemeral self-hosted runner, which will then pick up a queued job and execute inside the Azure container apps job replica.  The script is based on the GitHub doco here:
+- https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api?apiVersion=2022-11-28
+- https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app
+
+
 
 ## Azure
 
