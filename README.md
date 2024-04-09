@@ -70,7 +70,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    az login
    ```
-2. Fill in the values for the variables below and execute the command.    
+2. Fill in the values for the variables below and execute.
+    
    PowerShell
    ```powershell
    $GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
@@ -78,19 +79,19 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
    $LOCATION='<Your Preferred Azure Location>'
    $REPO_OWNER='<Your GitHub Account Name>'
-   $SUBSCRIPTION='<Your Subscription ID>'
+   $SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
    Bash
-   ```BASH
+   ```Bash
    GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
    LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
    LOCATION='<Your Preferred Azure Location>'
    REPO_OWNER='<Your GitHub Account Name>'
-   SUBSCRIPTION='<Your Subscription ID>'
+   SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
-4. Execute the following to configure variables used throughtout the Azure resource creation process:    
-
+4. Execute this as is, or feel free to change the naming convention as required.
+   
    PowerShell    
    ```powershell
    $CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
@@ -98,8 +99,9 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $ENVIRONMENT='cae-apps-jobs-github-runners'
    $JOB_NAME='caj-apps-jobs-github-runners'
    $KEYVAULT_NAME='kv-apps-jobs-github-runners'
+   $KEYVAULT_SECRET_NAME='github-app-key-1'
    $REPO_NAME='azure-apps-jobs-github-runners'
-   $RESOURCE_GROUP='rg-apps-jobs-github-runners'
+   $RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
    $UAMI_NAME='uami-apps-jobs-github-runners'
    ```    
    Bash    
@@ -109,11 +111,24 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ENVIRONMENT='cae-apps-jobs-github-runners'
    JOB_NAME='caj-apps-jobs-github-runners'
    KEYVAULT_NAME='kv-apps-jobs-github-runners'
+   KEYVAULT_SECRET_NAME='github-app-key-1'
    REPO_NAME='azure-apps-jobs-github-runners'
-   RESOURCE_GROUP='rg-apps-jobs-github-runners'
+   RESOURCE_GROUP_NAME='rg-apps-jobs-github-runners'
    UAMI_NAME='uami-apps-jobs-github-runners'
    ```
-5. 
+5. Set your subscription context.    
+   ```
+   az account set --subscription $SUBSCRIPTION_ID
+   ```
+6. Create a new resource group.
+   ```
+   az group create --name $RESOURCE_GROUP_NAME --location $LOCATION
+   ```
+7. Create a new secret in the keyvault for the PEM content    
+   ```
+   az keyvault secret set --vault-name $KEYVAULT_NAME --name KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILE_PATH | Out-Null
+   ```
+8. 
 
 
 Vars for sub, rg, keyvault name, uami name, pem keyvault ref
