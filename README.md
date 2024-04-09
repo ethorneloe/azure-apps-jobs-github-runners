@@ -23,6 +23,8 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 
 # Configuration Steps
 
+
+
 ## GitHub 
 1. Create a copy of this repo.  
 [![Create a Copy](https://img.shields.io/badge/-Create%20a%20Copy-darkgreen)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/generate)
@@ -56,6 +58,9 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
   - An `App ID`
   - An `Installation ID`
   - A filepath to the GitHub App private key saved earlier on.
+
+## Dockerfile
+The docker file in this repo uses GitHub's runner image from 
 
 ## Azure
 
