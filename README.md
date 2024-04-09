@@ -179,6 +179,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az role assignment create --assignee $UAMI_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d'
    ```
 
+   az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
+   $ACR_RESOURCE_ID = az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv
    Bash
    ```bash
    ACR_RESOURCE_ID=$(az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv) \
