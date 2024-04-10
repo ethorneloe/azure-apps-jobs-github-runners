@@ -136,7 +136,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
 1. Create the key vault.    
    ```
-   az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --enable-rbac-authorization --output none
+   az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --enable-rbac-authorization true --output none
    ```
    
 1. Create a new secret in the key vault for the `pem` content.       
