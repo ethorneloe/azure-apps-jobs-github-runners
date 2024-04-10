@@ -204,7 +204,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
    ```
    
-1. Create a new container based on the Dockerfile in your copy of this repo.
+1. Create a new container based on the Dockerfile in your copy of this repo.  This step will take several minutes.
    ```
    az acr build --registry "$CONTAINER_REGISTRY_NAME" --image "$CONTAINER_IMAGE_NAME" --file "Dockerfile" "https://github.com/$REPO_OWNER/$REPO_NAME.git" --output none
    ```
