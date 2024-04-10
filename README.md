@@ -70,7 +70,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 1. Connect to Azure CLI.
    ```
-   az login --only-show-errors --output-none
+   az login --only-show-errors --output none
    ```
 1. Fill in the values for the variables below and execute.
     
