@@ -68,6 +68,18 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 ### Configure Variables, Key Vault, and User-Assigned Managed Identity
 
+1. Make sure you have the latest version of Azure CLI installed.
+   ```
+   https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+   ```
+1. Once Azure CLI is up to date, make sure bicep is available.
+   ```
+   az bicep install
+   ```
+1. Also make sure the containerapp extension is added.
+   ```
+   az extension add -n containerapp
+   ``` 
 1. Connect to Azure CLI.
    ```
    az login --only-show-errors --output none
