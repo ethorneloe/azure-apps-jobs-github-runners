@@ -104,8 +104,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    REPO_OWNER='<Your GitHub Account Name>'
    SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
-
-   
+   <br />
 1. Execute this as is, or feel free to change the naming convention as required.
    
    PowerShell    
@@ -136,20 +135,17 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    RESOURCE_GROUP_NAME="rg-caj-github-runners-$random6digits"
    UAMI_NAME="uami-caj-github-runners-$random6digits"
    ```
-
-   
+   <br />   
 1. Set your subscription context.    
    ```
    az account set --subscription $SUBSCRIPTION_ID --output none
    ```
-
-   
+   <br />
 1. Create a new resource group.
    ```
    az group create --name $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
-
-   
+   <br />
 1. Create the key vault.    
 
    PowerShell
@@ -169,8 +165,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --location $LOCATION \
      --output none
    ```
-   
-   
+   <br /> 
 1. Create a new secret in the key vault for the `pem` content.    
    
    PowerShell
@@ -190,8 +185,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --file $LOCAL_PEM_FILEPATH \
      --output none
    ```
-
-   
+   <br />
 1. Save the key vault secret URI in a variable as it will be used later.
    
    PowerShell
@@ -211,8 +205,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --query id \
      --output tsv)
    ```
-
-   
+   <br />
 1. Create a user-assigned managed identity(uami).  This will be used to access the secret, the container registry later on, and also can be used inside the GitHub workflows that run in the container apps job for performing operations in Azure.
    
    PowerShell
@@ -232,8 +225,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --location $LOCATION \
      --output none
    ```
-
-   
+   <br />   
 1. Get the `id` and `clientId` of the `uami`.
 
    PowerShell
@@ -247,8 +239,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    UAMI_CLIENT_ID=$(az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query clientId --output tsv)
    UAMI_RESOURCE_ID=$(az identity show --name $UAMI_NAME --resource-group $RESOURCE_GROUP_NAME --query id --output tsv)
    ```
-
-   
+   <br />
 1. Create a `Key Vault Secrets User` role assignment on the key vault for the `uami`. Note the value used with `--role` which corresponds to the `Key Vault Secrets User` role. Microsoft recommends using the id for roles in the event they are renamed.
    PowerShell
    ```powershell
@@ -267,8 +258,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME \
      --output none
    ```
-
-   
+   <br />  
 ### Create Container-Related Resources and Log Analytics Workspace
 
 1. Create the container registry(acr).
@@ -292,8 +282,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      "https://github.com/$REPO_OWNER/$REPO_NAME.git" \
      --output none
    ```
-
-   
+   <br />
 1. Get the resource ID of the `acr` for role assignment
    
    PowerShell
@@ -305,8 +294,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```bash
    ACR_RESOURCE_ID=$(az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv)
    ```
-
-   
+   <br />  
 1. Grant the `uami` access to the `acr` to ensure the container apps job can pull images from the `acr`.
    
    PowerShell
@@ -326,8 +314,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' \
      --output none
    ```
-
-   
+   <br />
 1. Create a new container based on the Dockerfile in your copy of this repo.  This step will take several minutes.
    
    PowerShell
@@ -349,8 +336,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      "https://github.com/$REPO_OWNER/$REPO_NAME.git" \
      --output none
    ```
-
-   
+   <br />
 1. Create a Log Analytics Workspace(law) for the Container Apps Environment(cae).
    
    PowerShell
@@ -370,8 +356,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --location $LOCATION \
      --output none
    ```
-
-   
+   <br />   
 1. Save the `law` ID into a variable.
    *Note - The ID we need here is the `customerId`*
    
@@ -392,8 +377,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME \
      --output tsv)
    ```
-
-   
+   <br />  
 1. Save the `law` key into a variable.
    
    PowerShell
@@ -413,8 +397,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --query primarySharedKey \
      --output tsv)
    ```
-
-   
+   <br />   
 1. Create the `cae` for the apps job.
    
    PowerShell
@@ -442,8 +425,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none \
      --only-show-errors
    ```
-
-   
+   <br />
 1. Create the apps job(caj).  
    *Note - The `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
    ```
