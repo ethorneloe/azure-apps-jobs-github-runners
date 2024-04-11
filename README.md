@@ -271,8 +271,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az acr build `
      --registry "$CONTAINER_REGISTRY_NAME" `
      --image "$CONTAINER_IMAGE_NAME" `
-     --file "Dockerfile" `
-     "https://github.com/$REPO_OWNER/$REPO_NAME.git" `
+     --file "Dockerfile" $DOCKERFILE_PATH `
      --output none
    ```
    
@@ -281,8 +280,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az acr build \
      --registry "$CONTAINER_REGISTRY_NAME" \
      --image "$CONTAINER_IMAGE_NAME" \
-     --file "Dockerfile" \
-     "https://github.com/$REPO_OWNER/$REPO_NAME.git" \
+     --file "Dockerfile" $DOCKERFILE_PATH \
      --output none
    ```
    <br />
