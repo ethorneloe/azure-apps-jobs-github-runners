@@ -276,19 +276,19 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
    PowerShell
    ```powershell
-   az acr build `
-     --registry "$CONTAINER_REGISTRY_NAME" `
-     --image "$CONTAINER_IMAGE_NAME" `
-     --file "Dockerfile" $DOCKERFILE_PATH `
+   az acr create `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --name $CONTAINER_REGISTRY_NAME `
+     --sku Basic `
      --output none
    ```
    
    Bash
    ```bash
-   az acr build \
-     --registry "$CONTAINER_REGISTRY_NAME" \
-     --image "$CONTAINER_IMAGE_NAME" \
-     --file "Dockerfile" $DOCKERFILE_PATH \
+   az acr create \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --name $CONTAINER_REGISTRY_NAME \
+     --sku Basic \
      --output none
    ```
    <br />
