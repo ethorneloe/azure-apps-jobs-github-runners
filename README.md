@@ -447,10 +447,15 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     --scale-rule-auth "appKey=pem" `
     --cpu "2.0" `
     --memory "4Gi" `
-    --secrets "pem=keyVaultUrl:$KEYVAULT_SECRET_URI,identity:$UAMI_RESOURCE_ID" `
+    --secrets "pem=replacewithkeyvaultref" `
     --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" `
     --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" `
     --output none
+   ```
+
+1. Update the secret to suit a key vault ref.
+   ```
+   az containerapp job secret set --name $CONTAINER_APPS_JOB_NAME --resource-group $RESOURCE_GROUP_NAME --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID"
    ```
 
 Check the logs in the LAW after a few minutes.  Should see KEDA scaler has been built.
