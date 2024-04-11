@@ -174,7 +174,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none
    ```
    <br /> 
-1. Create a new secret in the key vault for the `pem` content.    
+1. Create a new secret in the key vault for the GitHub App key (contents of pem file).
    
    PowerShell
    ```powershell
