@@ -362,7 +362,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none
    ```
    <br />   
-1. Save the `law` ID into a variable.
+1. Save the `law` ID into a variable.  
    *Note - The ID we need here is the `customerId`*
    
    PowerShell
