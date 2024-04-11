@@ -88,6 +88,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     
    PowerShell
    ```powershell
+   $DOCKER_FILEPATH='<Local path to Dockerfile (the one included in this repo works fine)>'
    $GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    $GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
    $LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
@@ -99,6 +100,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
    Bash
    ```Bash
+   DOCKER_FILEPATH='<Local path to Dockerfile (the one included in this repo works fine)>'
    GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
    LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
