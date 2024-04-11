@@ -143,9 +143,24 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    
 1. Create the key vault.    
+
+   PowerShell
    ```
-   az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --output none
+   az keyvault create `
+     --name $KEYVAULT_NAME `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --location $LOCATION `
+     --output none
    ```
+   Bash
+   ```
+   az keyvault create \
+     --name $KEYVAULT_NAME \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --location $LOCATION \
+     --output none
+   ```
+   
    
 1. Create a new secret in the key vault for the `pem` content.       
    ```
