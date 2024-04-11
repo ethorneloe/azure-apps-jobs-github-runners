@@ -96,7 +96,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    SUBSCRIPTION_ID = az account show --query "id" -o tsv
    ```
    <br />
-1. Make sure `Dockerfile`, `entrypoint.sh` (included in this repo) and the .pem file (your GitHub App Key from earlier on) are present on the local file system.  Fill in values for the variables below and execute.
+1. Make sure `Dockerfile` , `entrypoint.sh` (included in this repo) and the `.pem file` (your GitHub App Key from earlier on) are present on the local file system.  Fill in values for the variables below and execute.
     
    PowerShell
    ```powershell
