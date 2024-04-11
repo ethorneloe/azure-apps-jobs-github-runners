@@ -162,6 +162,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --name $KEYVAULT_NAME `
      --resource-group $RESOURCE_GROUP_NAME `
      --location $LOCATION `
+     --enable-rbac-authorization true `
      --output none
    ```
    
@@ -171,6 +172,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --name $KEYVAULT_NAME \
      --resource-group $RESOURCE_GROUP_NAME \
      --location $LOCATION \
+     --enable-rbac-authorization true \
      --output none
    ```
    <br />
