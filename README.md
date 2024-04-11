@@ -93,6 +93,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
    $LOCATION='<Your Preferred Azure Location>'
    $REPO_OWNER='<Your GitHub Account Name>'
+   $REPO_NAME='<Your repo name>'
    $SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
    
@@ -103,6 +104,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
    LOCATION='<Your Preferred Azure Location>'
    REPO_OWNER='<Your GitHub Account Name>'
+   REPO_NAME='<Your repo name>'
    SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
    <br />
@@ -118,7 +120,6 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $KEYVAULT_NAME="kv-caj-gh-runners-$RANDOM_5_DIGITS"
    $KEYVAULT_SECRET_NAME="github-app-key-1"
    $LOG_ANALYTICS_WORKSPACE_NAME = "workspace-caj-github-runners-$RANDOM_5_DIGITS"
-   $REPO_NAME='azure-apps-jobs-github-runners'
    $RESOURCE_GROUP_NAME="rg-caj-github-runners-$RANDOM_5_DIGITS"
    $UAMI_NAME="uami-caj-github-runners-$RANDOM_5_DIGITS"
    ```
@@ -132,7 +133,6 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    KEYVAULT_NAME="kv-caj-gh-runners-$RANDOM_5_DIGITS"
    KEYVAULT_SECRET_NAME="github-app-key-1"
    LOG_ANALYTICS_WORKSPACE_NAME = "workspace-caj-github-runners-$RANDOM_5_DIGITS"
-   REPO_NAME='azure-apps-jobs-github-runners'
    RESOURCE_GROUP_NAME="rg-caj-github-runners-$RANDOM_5_DIGITS"
    UAMI_NAME="uami-caj-github-runners-$RANDOM_5_DIGITS"
    ```
