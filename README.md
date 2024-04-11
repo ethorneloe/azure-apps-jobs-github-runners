@@ -194,8 +194,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```powershell
    az role assignment create `
      --assignee $USER_ID `
-     --role "Key Vault Administrator" `
-     --scope "/subscriptions/<your-subscription-id>/resourceGroups/<your-resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-keyvault-name>" `
+     --role '00482a5a-887f-4fb3-b363-3b7fe8e74483' `
+     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME" `
      --output none
    ```
 
@@ -203,8 +203,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```bash
    az role assignment create \
      --assignee $USER_ID \
-     --role "Key Vault Administrator" \
-     --scope "/subscriptions/<your-subscription-id>/resourceGroups/<your-resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-keyvault-name>" \
+     --role '00482a5a-887f-4fb3-b363-3b7fe8e74483' \
+     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME" \
      --output none
    ```
    <br />
