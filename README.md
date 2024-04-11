@@ -145,7 +145,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 1. Create the key vault.    
 
    PowerShell
-   ```
+   ```powershell
    az keyvault create `
      --name $KEYVAULT_NAME `
      --resource-group $RESOURCE_GROUP_NAME `
@@ -153,7 +153,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none
    ```
    Bash
-   ```
+   ```bash
    az keyvault create \
      --name $KEYVAULT_NAME \
      --resource-group $RESOURCE_GROUP_NAME \
@@ -162,27 +162,67 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    
    
-1. Create a new secret in the key vault for the `pem` content.       
-   ```
-   az keyvault secret set --vault-name $KEYVAULT_NAME --name $KEYVAULT_SECRET_NAME --file $LOCAL_PEM_FILEPATH --output none
+1. Create a new secret in the key vault for the `pem` content.    
+   
+   PowerShell
+   ```powershell
+    az keyvault secret set `
+      --vault-name $KEYVAULT_NAME `
+      --name $KEYVAULT_SECRET_NAME `
+      --file $LOCAL_PEM_FILEPATH `
+      --output none
+    ```
+
+   Bash
+   ```bash
+   az keyvault secret set \
+     --vault-name $KEYVAULT_NAME \
+     --name $KEYVAULT_SECRET_NAME \
+     --file $LOCAL_PEM_FILEPATH \
+     --output none
    ```
    
 1. Save the key vault secret URI in a variable as it will be used later.
    
    PowerShell
    ```powershell
-   $KEYVAULT_SECRET_URI = az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id --output tsv
+   $KEYVAULT_SECRET_URI = az keyvault secret show `
+     --name $KEYVAULT_SECRET_NAME `
+     --vault-name $KEYVAULT_NAME `
+     --query id `
+     --output tsv
    ```
    
    Bash
    ```bash
-   KEYVAULT_SECRET_URI=$(az keyvault secret show --name $KEYVAULT_SECRET_NAME --vault-name $KEYVAULT_NAME --query id --output tsv)
+   KEYVAULT_SECRET_URI=$(az keyvault secret show \
+     --name $KEYVAULT_SECRET_NAME \
+     --vault-name $KEYVAULT_NAME \
+     --query id \
+     --output tsv)
    ```
+
    
 1. Create a user-assigned managed identity(uami).  This will be used to access the secret, the container registry later on, and also can be used inside the GitHub workflows that run in the container apps job for performing operations in Azure.
+   
+   PowerShell
+   ```powershell
+   az identity create `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --name $UAMI_NAME `
+     --location $LOCATION `
+     --output none
    ```
-   az identity create --resource-group $RESOURCE_GROUP_NAME --name $UAMI_NAME --location $LOCATION --output none
+
+   Bash
+   ```bash
+   az identity create \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --name $UAMI_NAME \
+     --location $LOCATION \
+     --output none
    ```
+
    
 1. Get the `id` and `clientId` of the `uami`.
 
@@ -223,14 +263,46 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    
 1. Grant the `uami` access to the `acr` to ensure the container apps job can pull images from the `acr`.
+   PowerShell
+   ```powershell
+   az role assignment create `
+     --role '4633458b-17de-408a-b874-0445c86b69e6' `
+     --assignee $UAMI_CLIENT_ID `
+     --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME `
+     --output none
    ```
-   az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
+
+   Bash
+   ```bash
+   az role assignment create \
+     --role '4633458b-17de-408a-b874-0445c86b69e6' \
+     --assignee $UAMI_CLIENT_ID \
+     --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME \
+     --output none
    ```
-   
+
 1. Create a new container based on the Dockerfile in your copy of this repo.  This step will take several minutes.
+   
+   PowerShell
+   ```powershell
+   az acr build `
+     --registry "$CONTAINER_REGISTRY_NAME" `
+     --image "$CONTAINER_IMAGE_NAME" `
+     --file "Dockerfile" `
+     "https://github.com/$REPO_OWNER/$REPO_NAME.git" `
+     --output none
    ```
-   az acr build --registry "$CONTAINER_REGISTRY_NAME" --image "$CONTAINER_IMAGE_NAME" --file "Dockerfile" "https://github.com/$REPO_OWNER/$REPO_NAME.git" --output none
+
+   Bash
+   ```bash
+   az acr build \
+     --registry "$CONTAINER_REGISTRY_NAME" \
+     --image "$CONTAINER_IMAGE_NAME" \
+     --file "Dockerfile" \
+     "https://github.com/$REPO_OWNER/$REPO_NAME.git" \
+     --output none
    ```
+
 
 1. Create a Log Analytics Workspace(law) for the Container Apps Environment(cae).
    ```
