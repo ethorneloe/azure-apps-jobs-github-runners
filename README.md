@@ -96,14 +96,14 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    SUBSCRIPTION_ID = az account show --query "id" -o tsv
    ```
    <br />
-1. Make sure `Dockerfile` , `entrypoint.sh` (included in this repo) and the `.pem file` (your GitHub App Key from earlier on) are present on the local file system.  Fill in values for the variables below and execute.
+1. Place `Dockerfile` and `entrypoint.sh`(included in this repo) together into a local folder.  Fill in values for the variables below and execute.
     
    PowerShell
    ```powershell
    $DOCKERFILE_PATH='<Local path that contains your Dockerfile(just the containing folder without the filename)>'
    $GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    $GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
-   $LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide>'
+   $LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide(full path including filename)>'
    $LOCATION='<Your Preferred Azure Location>'
    $REPO_OWNER='<Your GitHub Account Name>'
    $REPO_NAME='<Your repo name>'
