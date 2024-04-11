@@ -73,7 +73,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az upgrade
    ```
    More details on installation can be found [here](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
-   <br />
+   <br /><br />
 1. Add the containerapp extension.
    ```
    az extension add -n containerapp
