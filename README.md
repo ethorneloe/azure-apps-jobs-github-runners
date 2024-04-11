@@ -96,7 +96,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    SUBSCRIPTION_ID = az account show --query "id" -o tsv
    ```
    <br />
-1. Fill in the values for the variables below and execute.  Make sure your `Dockerfile` and pem file(GitHub App Key) are present on the local filesystem.
+1. Make sure `Dockerfile`, `entrypoint.sh` (included in this repo) and the .pem file (your GitHub App Key from earlier on) are present on the local file system.  Fill in values for the variables below and execute.
     
    PowerShell
    ```powershell
@@ -324,7 +324,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none
    ```
    <br />
-1. Create a new container based on the Dockerfile in your copy of this repo.  This step will take several minutes.
+1. Create a new container based on the Dockerfile.  This step will take several minutes.
    
    PowerShell
    ```powershell
