@@ -173,7 +173,38 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --location $LOCATION \
      --output none
    ```
-   <br /> 
+   <br />
+1. Get your Azure user account `id`.
+   PowerShell
+   ```powershell
+   $USER_ID = az ad signed-in-user show --query id -o tsv
+   ```
+   Bash
+   ```bash
+   $USER_ID=$(az ad signed-in-user show --query objectId -o tsv)
+   ```
+   <br />
+
+1. Create a role assignment for your account on the key vault to enable administration.
+
+   PowerShell
+   ```powershell
+   az role assignment create `
+     --assignee $USER_ID `
+     --role "Key Vault Administrator" `
+     --scope "/subscriptions/<your-subscription-id>/resourceGroups/<your-resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-keyvault-name>" `
+     --output none
+   ```
+
+   Bash
+   ```bash
+   az role assignment create \
+     --assignee $USER_ID \
+     --role "Key Vault Administrator" \
+     --scope "/subscriptions/<your-subscription-id>/resourceGroups/<your-resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-keyvault-name>" \
+     --output none
+   ```
+   <br />
 1. Create a new secret in the key vault for the GitHub App key (contents of pem file).
    
    PowerShell
