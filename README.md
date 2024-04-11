@@ -498,7 +498,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az containerapp job secret set `
      --name $CONTAINER_APPS_JOB_NAME `
      --resource-group $RESOURCE_GROUP_NAME `
-     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID"
+     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" `
+     --output none
    ```
 
    Bash
@@ -506,7 +507,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az containerapp job secret set \
      --name $CONTAINER_APPS_JOB_NAME \
      --resource-group $RESOURCE_GROUP_NAME \
-     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID"
+     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" \
+     --output none
    ```
    <br />
 ## Testing the Solution
