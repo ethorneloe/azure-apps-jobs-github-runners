@@ -510,7 +510,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 1. Select your `caj` resource, and then go to the `Logs` section.  If everything has worked correctly you should see the following messages.
    
-   Run this query to see all the logs in the table.
+   Run this query to see all the logs in the table.  
    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/f6c69b0d-fcf4-40f6-957d-6c70f3fd3920)
 
    You should see these messages.
