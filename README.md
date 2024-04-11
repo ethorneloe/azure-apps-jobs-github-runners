@@ -490,7 +490,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --scale-rule-auth "appKey=pem" `
      --cpu "2.0" `
      --memory "4Gi" `
-     --secrets "pem=replacewithkeyvaultref" `
+     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" `
      --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" `
      --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" `
      --output none
@@ -518,32 +518,12 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --scale-rule-auth "appKey=pem" \
      --cpu "2.0" \
      --memory "4Gi" \
-     --secrets "pem=replacewithkeyvaultref" \
+     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" \
      --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" \
      --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" \
      --output none
    ```
 
-   <br />
-1. Update the `caj` secret to use the `keyvault` secret uri and `uami` created earlier.
-   
-   PowerShell
-   ```powershell
-   az containerapp job secret set `
-     --name $CONTAINER_APPS_JOB_NAME `
-     --resource-group $RESOURCE_GROUP_NAME `
-     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" `
-     --output none
-   ```
-
-   Bash
-   ```bash
-   az containerapp job secret set \
-     --name $CONTAINER_APPS_JOB_NAME \
-     --resource-group $RESOURCE_GROUP_NAME \
-     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" \
-     --output none
-   ```
    <br />
 ## Testing the Solution
 
