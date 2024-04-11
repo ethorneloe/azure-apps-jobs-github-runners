@@ -455,9 +455,23 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
 
 1. Update the secret to suit a key vault ref.
+   
+   PowerShell
+   ```powershell
+   az containerapp job secret set `
+     --name $CONTAINER_APPS_JOB_NAME `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID"
    ```
-   az containerapp job secret set --name $CONTAINER_APPS_JOB_NAME --resource-group $RESOURCE_GROUP_NAME --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID"
+
+   Bash
+   ```bash
+   az containerapp job secret set \
+     --name $CONTAINER_APPS_JOB_NAME \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID"
    ```
+
 
 Check the logs in the LAW after a few minutes.  Should see KEDA scaler has been built.
 
