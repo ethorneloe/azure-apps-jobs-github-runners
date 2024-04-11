@@ -84,7 +84,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az login --only-show-errors --output none
    ```
    <br />
-1. Fill in the values for the variables below and execute.  Make sure your dockerfile and pem file(GitHub App Key) are present on the local filesystem.
+1. Fill in the values for the variables below and execute.  Make sure your Dockerfile and pem file(GitHub App Key) are present on the local filesystem.
     
    PowerShell
    ```powershell
@@ -339,7 +339,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none
    ```
    <br />
-1. Create a Log Analytics Workspace(law) for the Container Apps Environment(cae).
+1. Create a Log Analytics Workspace(law) to associate with the Container Apps Environment(cae).
    
    PowerShell
    ```powershell
@@ -400,7 +400,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output tsv)
    ```
    <br />   
-1. Create the `cae` for the apps job.
+1. Create the `cae` for the container apps job(caj).
    
    PowerShell
    ```powershell
@@ -428,32 +428,65 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --only-show-errors
    ```
    <br />
-1. Create the apps job(caj).  
-   *Note - The `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
-   ```
-   az containerapp job create --name "$CONTAINER_APPS_JOB_NAME" --resource-group "$RESOURCE_GROUP_NAME" --environment "$CONTAINER_APPS_ENVIRONMENT_NAME" `
-    --trigger-type Event `
-    --replica-timeout 1800 `
-    --replica-retry-limit 0 `
-    --replica-completion-count 1 `
-    --parallelism 1 `
-    --image "$CONTAINER_REGISTRY_NAME.azurecr.io/$CONTAINER_IMAGE_NAME" `
-    --min-executions 0 `
-    --max-executions 10 `
-    --polling-interval 30 `
-    --registry-identity $UAMI_RESOURCE_ID `
-    --scale-rule-name "github-runner" `
-    --scale-rule-type "github-runner" `
-    --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
-    --scale-rule-auth "appKey=pem" `
-    --cpu "2.0" `
-    --memory "4Gi" `
-    --secrets "pem=replacewithkeyvaultref" `
-    --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" `
-    --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" `
-    --output none
+1. Create the `caj`.  
+   *Note that a placeholder secret is used here.  I wasn't able to get the secret to work properly and show up in the portal correctly when using a keyvaultref at creation time of the job. Instead, I just create this temporary standard container app secret, and then update it to a keyvaultref in the next step.  Also note that the `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
+   PowerShell
+   ```powershell
+   az containerapp job create `
+     --name "$CONTAINER_APPS_JOB_NAME" `
+     --resource-group "$RESOURCE_GROUP_NAME" `
+     --environment "$CONTAINER_APPS_ENVIRONMENT_NAME" `
+     --trigger-type Event `
+     --replica-timeout 1800 `
+     --replica-retry-limit 0 `
+     --replica-completion-count 1 `
+     --parallelism 1 `
+     --image "$CONTAINER_REGISTRY_NAME.azurecr.io/$CONTAINER_IMAGE_NAME" `
+     --min-executions 0 `
+     --max-executions 10 `
+     --polling-interval 30 `
+     --registry-identity $UAMI_RESOURCE_ID `
+     --scale-rule-name "github-runner" `
+     --scale-rule-type "github-runner" `
+     --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
+     --scale-rule-auth "appKey=pem" `
+     --cpu "2.0" `
+     --memory "4Gi" `
+     --secrets "pem=replacewithkeyvaultref" `
+     --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" `
+     --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" `
+     --output none
    ```
 
+   Bash
+   ```bash
+   az containerapp job create \
+     --name "$CONTAINER_APPS_JOB_NAME" \
+     --resource-group "$RESOURCE_GROUP_NAME" \
+     --environment "$CONTAINER_APPS_ENVIRONMENT_NAME" \
+     --trigger-type Event \
+     --replica-timeout 1800 \
+     --replica-retry-limit 0 \
+     --replica-completion-count 1 \
+     --parallelism 1 \
+     --image "$CONTAINER_REGISTRY_NAME.azurecr.io/$CONTAINER_IMAGE_NAME" \
+     --min-executions 0 \
+     --max-executions 10 \
+     --polling-interval 30 \
+     --registry-identity $UAMI_RESOURCE_ID \
+     --scale-rule-name "github-runner" \
+     --scale-rule-type "github-runner" \
+     --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" \
+     --scale-rule-auth "appKey=pem" \
+     --cpu "2.0" \
+     --memory "4Gi" \
+     --secrets "pem=replacewithkeyvaultref" \
+     --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" \
+     --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" \
+     --output none
+   ```
+
+   <br />
 1. Update the secret to suit a key vault ref.
    
    PowerShell
