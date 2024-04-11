@@ -84,14 +84,14 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az login --only-show-errors --output none
    ```
    <br />
-1. Fill in the values for the variables below and execute.
+1. Fill in the values for the variables below and execute.  Make sure to create the files you will use for the docke
     
    PowerShell
    ```powershell
-   $DOCKER_FILEPATH='<Local path to Dockerfile (the one included in this repo works fine)>'
+   $DOCKERFILE_PATH='<Local path to Dockerfile (the one included in this repo works fine)>'
    $GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    $GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
-   $LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
+   $LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide>'
    $LOCATION='<Your Preferred Azure Location>'
    $REPO_OWNER='<Your GitHub Account Name>'
    $REPO_NAME='<Your repo name>'
@@ -100,10 +100,10 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
    Bash
    ```Bash
-   DOCKER_FILEPATH='<Local path to Dockerfile (the one included in this repo works fine)>'
+   DOCKERFILE_PATH='<Local path to Dockerfile (the one included in this repo works fine)>'
    GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
-   LOCAL_PEM_FILEPATH='<Path to your .pem file from earlier in this guide>'
+   LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide>'
    LOCATION='<Your Preferred Azure Location>'
    REPO_OWNER='<Your GitHub Account Name>'
    REPO_NAME='<Your repo name>'
@@ -176,7 +176,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     az keyvault secret set `
       --vault-name $KEYVAULT_NAME `
       --name $KEYVAULT_SECRET_NAME `
-      --file $LOCAL_PEM_FILEPATH `
+      --file $LOCAL_PEM_FILE_PATH `
       --output none
     ```
    
@@ -185,7 +185,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az keyvault secret set \
      --vault-name $KEYVAULT_NAME \
      --name $KEYVAULT_SECRET_NAME \
-     --file $LOCAL_PEM_FILEPATH \
+     --file $LOCAL_PEM_FILE_PATH \
      --output none
    ```
    <br />
