@@ -439,12 +439,11 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
     --image "$CONTAINER_REGISTRY_NAME.azurecr.io/$CONTAINER_IMAGE_NAME" `
     --min-executions 0 `
     --max-executions 10 `
-    --mi-user-assigned $UAMI_RESOURCE_ID `
     --polling-interval 30 `
     --registry-identity $UAMI_RESOURCE_ID `
     --scale-rule-name "github-runner" `
     --scale-rule-type "github-runner" `
-    --scale-rule-metadata "PEM=secretref:pem" "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
+    --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
     --scale-rule-auth "appKey=pem" `
     --cpu "2.0" `
     --memory "4Gi" `
