@@ -148,11 +148,6 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    RESOURCE_GROUP_NAME="rg-caj-github-runners-$RANDOM_5_DIGITS"
    UAMI_NAME="uami-caj-github-runners-$RANDOM_5_DIGITS"
    ```
-   <br />   
-1. Set your subscription context.    
-   ```
-   az account set --subscription $SUBSCRIPTION_ID --output none
-   ```
    <br />
 1. Create a new resource group.
    ```
