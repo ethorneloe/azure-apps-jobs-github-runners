@@ -552,7 +552,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    Run this query to see all the logs in the table.  
    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/f6c69b0d-fcf4-40f6-957d-6c70f3fd3920)
 
-   You should see these messages.
+   You should see these messages:  
+   ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/4dc7bb44-63e0-447d-a5d5-1f4c604f66e5)
 
 
 1. Run workflows in the repo and watch the runners get created in GitHub, along with the jobs being executed in Azure.
