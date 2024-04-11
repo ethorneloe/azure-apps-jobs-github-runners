@@ -70,19 +70,20 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 1. Make sure you have the latest version of Azure CLI installed.
    ```
-   https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+   az upgrade
    ```
-   
+   More details on installation can be found [here](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+   <br />
 1. Add the containerapp extension.
    ```
    az extension add -n containerapp
    ```
-
+   <br />
 1. Connect to Azure CLI.
    ```
    az login --only-show-errors --output none
    ```
-
+   <br />
 1. Fill in the values for the variables below and execute.
     
    PowerShell
