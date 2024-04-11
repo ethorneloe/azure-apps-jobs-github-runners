@@ -107,7 +107,6 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    $LOCATION='<Your Preferred Azure Location>'
    $REPO_OWNER='<Your GitHub Account Name>'
    $REPO_NAME='<Your repo name>'
-   $SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
    
    Bash
@@ -119,7 +118,6 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    LOCATION='<Your Preferred Azure Location>'
    REPO_OWNER='<Your GitHub Account Name>'
    REPO_NAME='<Your repo name>'
-   SUBSCRIPTION_ID='<Your Subscription ID>'
    ```
    <br />
 1. Execute this as is, or feel free to change the naming convention as required.
