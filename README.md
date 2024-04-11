@@ -79,7 +79,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az extension add -n containerapp
    ```
    <br />
-1. Connect to Azure CLI.
+1. Log into Azure.
    ```
    az login --only-show-errors --output none
    ```
