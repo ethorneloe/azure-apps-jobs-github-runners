@@ -72,11 +72,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
    ```
-1. Once Azure CLI is up to date, make sure bicep is available.
-   ```
-   az bicep install
-   ```
-1. Also make sure the containerapp extension is added.
+1. Add the containerapp extension.
    ```
    az extension add -n containerapp
    ``` 
