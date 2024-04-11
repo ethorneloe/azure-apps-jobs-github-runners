@@ -96,11 +96,11 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    SUBSCRIPTION_ID = az account show --query "id" -o tsv
    ```
    <br />
-1. Fill in the values for the variables below and execute.  Make sure your Dockerfile and pem file(GitHub App Key) are present on the local filesystem.
+1. Fill in the values for the variables below and execute.  Make sure your `Dockerfile` and pem file(GitHub App Key) are present on the local filesystem.
     
    PowerShell
    ```powershell
-   $DOCKERFILE_PATH='<Local path to Dockerfile (the one included in this repo works fine)>'
+   $DOCKERFILE_PATH='<Local path that contains your Dockerfile(just the containing folder without the filename)>'
    $GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    $GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
    $LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide>'
@@ -111,10 +111,10 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
    Bash
    ```Bash
-   DOCKERFILE_PATH='<Local path to Dockerfile (the one included in this repo works fine)>'
+   DOCKERFILE_PATH='<Local path that contains your Dockerfile(just the containing folder without the filename)>'
    GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
    GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
-   LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide>'
+   LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide(full path including filename)>'
    LOCATION='<Your Preferred Azure Location>'
    REPO_OWNER='<Your GitHub Account Name>'
    REPO_NAME='<Your repo name>'
