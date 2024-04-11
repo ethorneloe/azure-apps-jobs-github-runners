@@ -29,7 +29,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 2. Click on your GitHub profile icon at the top right, and go to `Settings -> Developer Settings -> GitHub Apps` and select `New GitHub App`  
    *Note - If you want this app to be available in your GitHub Organisation, then you need to navigate to the settings for your GitHub Org, and then perform the remaining steps below from the org-based developer settings, rather than your personal developer settings.*
 3. Give your app a name such as `Azure KEDA Scaled Runners`.  
-   The website field isn't important to get the GitHub app working, it is just there to provide an option for people to get more informoation about your GitHub App.  You can just use `https://github.com` but another website might be more appropriate for your use case.
+   The website field isn't important to get the GitHub App working, it is just there to provide an option for people to get more information about your GitHub App.  You can just use `https://github.com` but another website might be more appropriate for your use case.
 4. This GitHub App doesn't need a webhook, so that can be left unticked.
 5. For the permissions, we will need the following:  
     - *Repository permissions*
@@ -82,6 +82,18 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 1. Log into Azure.
    ```
    az login --only-show-errors --output none
+   ```
+   <br />
+1. Save your subscription ID to a variable.
+
+   PowerShell
+   ```
+   $SUBSCRIPTION_ID = az account show --query "id" -o tsv
+   ```
+
+   Bash
+   ```
+   SUBSCRIPTION_ID = az account show --query "id" -o tsv
    ```
    <br />
 1. Fill in the values for the variables below and execute.  Make sure your Dockerfile and pem file(GitHub App Key) are present on the local filesystem.
