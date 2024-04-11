@@ -267,7 +267,9 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME \
      --output none
    ```
-   <br />  
+   <br />
+   If you have already done so, take some time if you like to check the resources in the Azure Portal to confirm the `uami` and `keyvault` resources are present and the secret is configured correctly with the private key content.  Also check the role assignment on the keyvault for the `uami`.  Continue to the next steps if everything looks ok.
+   <br />
 ### Create Container-Related Resources and Log Analytics Workspace
 
 1. Create the container registry(acr).
