@@ -491,7 +491,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
 
    <br />
-1. Update the `caj` secret to suit the `keyvault secret uri` and `uami` created earlier.
+1. Update the `caj` secret to use the `keyvault` secret uri and `uami` created earlier.
    
    PowerShell
    ```powershell
