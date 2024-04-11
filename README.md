@@ -84,7 +84,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az login --only-show-errors --output none
    ```
    <br />
-1. Fill in the values for the variables below and execute.  Make sure to create the files you will use for the docke
+1. Fill in the values for the variables below and execute.  Make sure your dockerfile and pem file(GitHub App Key) are present on the local filesystem.
     
    PowerShell
    ```powershell
@@ -244,6 +244,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    <br />
 1. Create a `Key Vault Secrets User` role assignment on the key vault for the `uami`. Note the value used with `--role` which corresponds to the `Key Vault Secrets User` role. Microsoft recommends using the id for roles in the event they are renamed.
+   
    PowerShell
    ```powershell
    az role assignment create `
