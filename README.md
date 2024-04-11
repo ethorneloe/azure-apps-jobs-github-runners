@@ -223,7 +223,6 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none
    ```
 
-   
 1. Get the `id` and `clientId` of the `uami`.
 
    PowerShell
@@ -239,16 +238,49 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    
 1. Create a `Key Vault Secrets User` role assignment on the key vault for the `uami`. Note the value used with `--role` which corresponds to the `Key Vault Secrets User` role. Microsoft recommends using the id for roles in the event they are renamed.
+   PowerShell
+   ```powershell
+   az role assignment create `
+     --role '4633458b-17de-408a-b874-0445c86b69e6' `
+     --assignee $UAMI_CLIENT_ID `
+     --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME `
+     --output none
    ```
-   az role assignment create --role '4633458b-17de-408a-b874-0445c86b69e6' --assignee $UAMI_CLIENT_ID --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME --output none
+
+   Bash
+   ```bash
+   az role assignment create \
+     --role '4633458b-17de-408a-b874-0445c86b69e6' \
+     --assignee $UAMI_CLIENT_ID \
+     --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME \
+     --output none
    ```
+
 
 ### Create Container-Related Resources and Log Analytics Workspace
 
 1. Create the container registry(acr).
+
+   PowerShell
+   ```powershell
+   az acr build `
+     --registry "$CONTAINER_REGISTRY_NAME" `
+     --image "$CONTAINER_IMAGE_NAME" `
+     --file "Dockerfile" `
+     "https://github.com/$REPO_OWNER/$REPO_NAME.git" `
+     --output none
    ```
-   az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --sku Basic --output none
+
+   Bash
+   ```bash
+   az acr build \
+     --registry "$CONTAINER_REGISTRY_NAME" \
+     --image "$CONTAINER_IMAGE_NAME" \
+     --file "Dockerfile" \
+     "https://github.com/$REPO_OWNER/$REPO_NAME.git" \
+     --output none
    ```
+
    
 1. Get the resource ID of the `acr` for role assignment 
 
@@ -262,10 +294,26 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ACR_RESOURCE_ID=$(az acr show --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REGISTRY_NAME --query id --output tsv)
    ```
    
-1. Grant the `uami` access to the `acr` to ensure the container apps job can pull images from the `acr`.
+1. Grant the `uami` access to the `acr` to ensure the container apps job can pull images from the `acr`.    
+
+   PowerShell
+   ```powershell
+   az role assignment create `
+     --assignee $UAMI_CLIENT_ID `
+     --scope $ACR_RESOURCE_ID `
+     --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' `
+     --output none
    ```
-   az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
+
+   Bash
+   ```bash
+   az role assignment create \
+     --assignee $UAMI_CLIENT_ID \
+     --scope $ACR_RESOURCE_ID \
+     --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' \
+     --output none
    ```
+
 
 1. Create a new container based on the Dockerfile in your copy of this repo.  This step will take several minutes.
    
@@ -291,21 +339,92 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 
 1. Create a Log Analytics Workspace(law) for the Container Apps Environment(cae).
-   ```
-   az monitor log-analytics workspace create --resource-group $RESOURCE_GROUP_NAME --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME --location $LOCATION --output none
+   PowerShell
+   ```powershell
+   az monitor log-analytics workspace create `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME `
+     --location $LOCATION `
+     --output none
    ```
 
-1. Get the `law` ID and key.
+   Bash
+   ```bash
+   az monitor log-analytics workspace create \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME \
+     --location $LOCATION \
+     --output none
+   ```
+
+1. Save the `law` ID into a variable.
    *Note - The ID we need here is the `customerId`*
+   PowerShell
+   ```powershell
+   $LOG_ANALYTICS_WORKSPACE_ID = az monitor log-analytics workspace show `
+     --query customerId `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME `
+     --output tsv
    ```
-   $LOG_ANALYTICS_WORKSPACE_ID = az monitor log-analytics workspace show --query customerId --resource-group $RESOURCE_GROUP_NAME --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME --output tsv
-   $LOG_ANALYTICS_WORKSPACE_KEY = az monitor log-analytics workspace get-shared-keys --resource-group $RESOURCE_GROUP_NAME --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME --query primarySharedKey --output tsv
+
+   Bash
+   ```bash
+   LOG_ANALYTICS_WORKSPACE_ID=$(az monitor log-analytics workspace show \
+     --query customerId \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME \
+     --output tsv)
    ```
-   
+
+1. Save the `law` key into a variable.
+
+   PowerShell
+   ```powershell
+   $LOG_ANALYTICS_WORKSPACE_KEY = az monitor log-analytics workspace get-shared-keys `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME `
+     --query primarySharedKey `
+     --output tsv
+   ```
+
+   Bash
+   ```bash
+   LOG_ANALYTICS_WORKSPACE_KEY=$(az monitor log-analytics workspace get-shared-keys \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --workspace-name $LOG_ANALYTICS_WORKSPACE_NAME \
+     --query primarySharedKey \
+     --output tsv)
+   ```
+
 1. Create the `cae` for the apps job.
+
+   PowerShell
+   ```powershell
+   az containerapp env create `
+     --name $CONTAINER_APPS_ENVIRONMENT_NAME `
+     --resource-group $RESOURCE_GROUP_NAME `
+     --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID `
+     --logs-workspace-key $LOG_ANALYTICS_WORKSPACE_KEY `
+     --logs-destination log-analytics `
+     --location $LOCATION `
+     --output none `
+     --only-show-errors
    ```
-   az containerapp env create --name $CONTAINER_APPS_ENVIRONMENT_NAME --resource-group $RESOURCE_GROUP_NAME --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID --logs-workspace-key $LOG_ANALYTICS_WORKSPACE_KEY  --logs-destination log-analytics --location $LOCATION --output none --only-show-errors
+
+   Bash
+   ```bash
+   az containerapp env create \
+     --name $CONTAINER_APPS_ENVIRONMENT_NAME \
+     --resource-group $RESOURCE_GROUP_NAME \
+     --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID \
+     --logs-workspace-key $LOG_ANALYTICS_WORKSPACE_KEY \
+     --logs-destination log-analytics \
+     --location $LOCATION \
+     --output none \
+     --only-show-errors
    ```
+
 1. Create the apps job(caj).  
    *Note - The `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
    ```
