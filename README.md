@@ -149,7 +149,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    UAMI_NAME="uami-caj-github-runners-$RANDOM_5_DIGITS"
    ```
    <br />
-1. Create a new resource group.
+1. Create the resource group.
    ```
    az group create --name $RESOURCE_GROUP_NAME --location $LOCATION --output none
    ```
