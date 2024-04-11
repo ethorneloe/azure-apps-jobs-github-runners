@@ -527,13 +527,14 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    <br />
 ## Testing the Solution
 
-1. Select your `caj` resource, and then go to the `Logs` section.  If everything has worked correctly you should see the following messages.
+1. Select your `caj` resource, and then go to the `Logs` section.  If everything has worked correctly you should see the following messages after several minutes (It takes some time for the KEDA scaler to build).
    
    Run this query to see all the logs in the table.  
    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/f6c69b0d-fcf4-40f6-957d-6c70f3fd3920)
 
    You should see these messages:  
-   ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/4dc7bb44-63e0-447d-a5d5-1f4c604f66e5)
+   ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/66ec817b-ef29-43aa-a95a-f512b184e38e)
+
 
 
 1. Run workflows in the repo and watch the runners get created in GitHub, along with the jobs being executed in Azure.
