@@ -110,31 +110,31 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
    PowerShell    
    ```powershell
-   $random6digits = -join (('0123456789abcdefghijklmnopqrstuvwxyz').ToCharArray() | Get-Random -Count 6)
+   $RANDOM_5_DIGITS = -join (('0123456789abcdefghijklmnopqrstuvwxyz').ToCharArray() | Get-Random -Count 5)
    $CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
-   $CONTAINER_REGISTRY_NAME="acrcajgithubrunners$random6digits"
-   $CONTAINER_APPS_ENVIRONMENT_NAME="cae-caj-github-runners-$random6digits"
-   $CONTAINER_APPS_JOB_NAME="caj-github-runners-$random6digits"
-   $KEYVAULT_NAME="kv-caj-gh-runners-$random6digits"
+   $CONTAINER_REGISTRY_NAME="acrcajgithubrunners$RANDOM_5_DIGITS"
+   $CONTAINER_APPS_ENVIRONMENT_NAME="cae-caj-github-runners-$RANDOM_5_DIGITS"
+   $CONTAINER_APPS_JOB_NAME="caj-github-runners-$RANDOM_5_DIGITS"
+   $KEYVAULT_NAME="kv-caj-gh-runners-$RANDOM_5_DIGITS"
    $KEYVAULT_SECRET_NAME="github-app-key-1"
-   $LOG_ANALYTICS_WORKSPACE_NAME = "workspace-caj-github-runners-$random6digits"
+   $LOG_ANALYTICS_WORKSPACE_NAME = "workspace-caj-github-runners-$RANDOM_5_DIGITS"
    $REPO_NAME='azure-apps-jobs-github-runners'
-   $RESOURCE_GROUP_NAME="rg-caj-github-runners-$random6digits"
-   $UAMI_NAME="uami-caj-github-runners-$random6digits"
+   $RESOURCE_GROUP_NAME="rg-caj-github-runners-$RANDOM_5_DIGITS"
+   $UAMI_NAME="uami-caj-github-runners-$RANDOM_5_DIGITS"
    ```
       
    Bash    
    ```bash
    CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
-   CONTAINER_REGISTRY_NAME="acrcajgithubrunners$random6digits"
-   CONTAINER_APPS_ENVIRONMENT_NAME="cae-caj-github-runners-$random6digits"
-   CONTAINER_APPS_JOB_NAME="caj-github-runners-$random6digits"
-   KEYVAULT_NAME="kv-caj-gh-runners-$random6digits"
+   CONTAINER_REGISTRY_NAME="acrcajgithubrunners$RANDOM_5_DIGITS"
+   CONTAINER_APPS_ENVIRONMENT_NAME="cae-caj-github-runners-$RANDOM_5_DIGITS"
+   CONTAINER_APPS_JOB_NAME="caj-github-runners-$RANDOM_5_DIGITS"
+   KEYVAULT_NAME="kv-caj-gh-runners-$RANDOM_5_DIGITS"
    KEYVAULT_SECRET_NAME="github-app-key-1"
-   LOG_ANALYTICS_WORKSPACE_NAME = "workspace-caj-github-runners-$random6digits"
+   LOG_ANALYTICS_WORKSPACE_NAME = "workspace-caj-github-runners-$RANDOM_5_DIGITS"
    REPO_NAME='azure-apps-jobs-github-runners'
-   RESOURCE_GROUP_NAME="rg-caj-github-runners-$random6digits"
-   UAMI_NAME="uami-caj-github-runners-$random6digits"
+   RESOURCE_GROUP_NAME="rg-caj-github-runners-$RANDOM_5_DIGITS"
+   UAMI_NAME="uami-caj-github-runners-$RANDOM_5_DIGITS"
    ```
    <br />   
 1. Set your subscription context.    
