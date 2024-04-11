@@ -267,3 +267,6 @@ Check the logs in the LAW after a few minutes.  Should see KEDA scaler has been 
 1. Run workflows in the repo and watch the runners get created in GitHub, along with the jobs being executed in Azure.
    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/46b06dd2-ce90-424f-806d-b314fb880bf9)
 
+   ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/8f70b28d-92ad-400a-860c-128cc7b20662)
+
+
