@@ -263,22 +263,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    
 1. Grant the `uami` access to the `acr` to ensure the container apps job can pull images from the `acr`.
-   PowerShell
-   ```powershell
-   az role assignment create `
-     --role '4633458b-17de-408a-b874-0445c86b69e6' `
-     --assignee $UAMI_CLIENT_ID `
-     --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME `
-     --output none
    ```
-
-   Bash
-   ```bash
-   az role assignment create \
-     --role '4633458b-17de-408a-b874-0445c86b69e6' \
-     --assignee $UAMI_CLIENT_ID \
-     --scope /subscriptions/$SUBSCRIPTION_ID/resourcegroups/$RESOURCE_GROUP_NAME \
-     --output none
+   az role assignment create --assignee $UAMI_CLIENT_ID --scope $ACR_RESOURCE_ID --role '7f951dda-4ed3-4680-a7ca-43fe172d538d' --output none
    ```
 
 1. Create a new container based on the Dockerfile in your copy of this repo.  This step will take several minutes.
