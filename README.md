@@ -467,7 +467,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    <br />
 1. Create the `caj`.  
-   *Note that a placeholder secret is used here.  I wasn't able to get the secret to work properly and show up in the portal correctly when using a keyvaultref at creation time of the job. Instead, I just create this temporary standard container app secret, and then update it to a keyvaultref in the next step.  Also note that the `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
+   *Note that the `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
    
    PowerShell
    ```powershell
