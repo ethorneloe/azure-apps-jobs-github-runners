@@ -1,5 +1,5 @@
 # Overview
-This repository provides a step-by-step guide on configuring KEDA-scaled self-hosted GitHub runners as Azure Container Apps Jobs, using GitHub App authentication. Note that this is currently a work in progress.
+This repository provides a step-by-step guide on configuring KEDA-scaled self-hosted GitHub runners as Azure Container Apps Jobs, using GitHub App authentication.
 
 # Goals
 - To provide easy-to-follow configuration steps suitable for learning and experimentation using Azure CLI.
