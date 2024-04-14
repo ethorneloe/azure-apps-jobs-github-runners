@@ -157,7 +157,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    CONTAINER_APPS_JOB_NAME="caj-github-runners-$RANDOM_5_DIGITS"
    KEYVAULT_NAME="kv-caj-gh-runners-$RANDOM_5_DIGITS"
    KEYVAULT_SECRET_NAME="github-app-key-1"
-   LOG_ANALYTICS_WORKSPACE_NAME = "workspace-caj-github-runners-$RANDOM_5_DIGITS"
+   LOG_ANALYTICS_WORKSPACE_NAME="workspace-caj-github-runners-$RANDOM_5_DIGITS"
    RESOURCE_GROUP_NAME="rg-caj-github-runners-$RANDOM_5_DIGITS"
    UAMI_NAME="uami-caj-github-runners-$RANDOM_5_DIGITS"
    ```
