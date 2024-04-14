@@ -197,7 +197,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    Bash
    ```bash
-   $USER_ID=$(az ad signed-in-user show --query objectId -o tsv)
+   USER_ID=$(az ad signed-in-user show --query objectId -o tsv)
    ```
    <br />
 
