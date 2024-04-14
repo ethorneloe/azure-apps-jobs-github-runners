@@ -150,7 +150,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
       
    Bash    
    ```bash
-   RANDOM_5_DIGITS=$(openssl rand -base64 25 | sed -e 's|\(.\{5\}\).*|\1|')
+   RANDOM_5_DIGITS=$(openssl rand -base64 25 | sed -e 's|\(.\{5\}\).*|\1|' | tr '[:upper:]' '[:lower:]')
    CONTAINER_IMAGE_NAME='github-actions-runner:1.0'
    CONTAINER_REGISTRY_NAME="acrcajgithubrunners$RANDOM_5_DIGITS"
    CONTAINER_APPS_ENVIRONMENT_NAME="cae-caj-github-runners-$RANDOM_5_DIGITS"
