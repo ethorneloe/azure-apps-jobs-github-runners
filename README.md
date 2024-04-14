@@ -388,7 +388,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    az acr build \
      --registry "$CONTAINER_REGISTRY_NAME" \
      --image "$CONTAINER_IMAGE_NAME" \
-     --file "$DOCKERFILE_PATH\Dockerfile" $DOCKERFILE_PATH
+     --file "$DOCKERFILE_PATH/Dockerfile" $DOCKERFILE_PATH
    ```
    <br />
 1. Create a Log Analytics Workspace(law) to associate with the Container Apps Environment(cae).
