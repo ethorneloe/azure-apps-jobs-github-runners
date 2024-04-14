@@ -193,11 +193,13 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    
    PowerShell
    ```powershell
-   $USER_ID = az ad signed-in-user show --query id -o tsv
+   $UPN = az account show --query user.name -o tsv
+   $USER_ID = az ad user show --id "$UPN" --query id -o tsv
    ```
    Bash
    ```bash
-   USER_ID=$(az ad signed-in-user show --query objectId -o tsv)
+   UPN=$(az account show --query user.name -o tsv)
+   USER_ID=$(az ad user show --id "$UPN" --query id -o tsv)
    ```
    <br />
 
