@@ -105,7 +105,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
    Bash
    ```
-   SUBSCRIPTION_ID = az account show --query "id" -o tsv
+   SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
    ```
    <br />
 1. Place `Dockerfile` and `entrypoint.sh`(included in this repo, or use your own) together into a local folder. If using `Windows`, make sure the `entrypoint.sh` file is using `Linux` line-endings.  Fill in values for the variables below and execute.
