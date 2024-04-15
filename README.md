@@ -56,7 +56,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
           - `Administration` - `Read-only`
           - `Self-hosted runners` - `Read and write`
 
-    *Note: Later on, in the container apps job settings, the KEDA scaler can be configured for repo or org scope.*
+    *Note: Later on, in the container apps job settings, the KEDA scaler can be configured for repo or org scope. This guide currently is designed for repo scope.*
 7. Finally, select `Only on this account` and then click on `Create GitHub App`.
 8. After the app is created, there should be a notification to create a new private key at the top of the screen. Click that link and select `Generate a private key`. If there was no notification, simply scroll down the page to the private keys section.  The private key will automatically download into your browser's downloads directory.  Move that to somewhere safe and take note of the filepath, which we will use later with the Azure apps job.
 9. At the top of the GitHub App config page, there will be an App ID.  Take note of this as it will be used later for the Azure apps job.
