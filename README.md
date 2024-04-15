@@ -14,7 +14,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 
 # Advantages of Azure Container Apps Jobs
 - **Ephemeral Execution** - Each job runs in its own container which is created and destroyed whenever the job needs to execute.
-- **Reduced Costs** -  Cost is based on job execution time. No need to pay for idling compute resources while they wait for jobs.
+- **Reduced Costs** -  Idle charges don't apply with scale to zero replicas.
 - **Flexibility and Independence** - Dockerfiles and entrypoints can be customised to suit different jobs with different dependencies.
 - **Auto-Scaling** - The KEDA scaler takes care of spinning up a new container whenever new jobs are queued.  Each job runs in its own container for parallel execution.
 
