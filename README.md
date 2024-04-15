@@ -553,7 +553,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
 
 
 
-1. Run workflows in the repo (or add some of your own) and watch the runners get created in GitHub, along with the jobs being executed in Azure. Make sure the jobs are tagged with self-hosted. The scaling rule can be updated to support specific tags as well.
+1. Run workflows in the repo (or add some of your own) and watch the runners get created in GitHub, along with the jobs being executed in Azure. Make sure the jobs are tagged with `self-hosted`. The scaling rule can be updated to support specific tags as well.
 
    Ephemeral Self-Hosted Runners for Each Job  
    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/46b06dd2-ce90-424f-806d-b314fb880bf9)  
