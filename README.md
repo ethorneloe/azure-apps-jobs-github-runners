@@ -30,7 +30,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 2. Click on your GitHub profile icon at the top right, and go to `Settings -> Developer Settings -> GitHub Apps` and select `New GitHub App`  
    *Note - If you want this app to be available in your GitHub Organisation, then you need to navigate to the settings for your GitHub Org, and then perform the remaining steps below from the org-based developer settings, rather than your personal developer settings.*
 3. Give your app a name such as `Azure KEDA Scaled Runners`.  
-   The website field isn't important to get the GitHub App working, it is just there to provide an option for people to get more information about your GitHub App.  You can just use `https://github.com` but another website might be more appropriate for your use case.
+   The website field isn't important to get the GitHub App working, it is just there to provide an option for supplying more information about your GitHub App.  You can just use `https://github.com` but another website might be more appropriate for your use case.
 4. This GitHub App doesn't need a webhook, so that can be left unticked.
 5. For the permissions, we will need the following depending on runner scope:
     - **Repo Scope**
