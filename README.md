@@ -22,7 +22,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 - **Auto-Scaling** - The KEDA scaler takes care of spinning up a new container whenever new jobs are queued.  Each job runs in its own container for parallel execution.
 
 # Architecture
-![architecture](https://github.com/ethorneloe/caj-runners-test/assets/129253602/7c28633f-8eff-4571-88ec-7dafd418193c)
+![keda-scaled-runners drawio](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/cd51971a-1e22-408c-864b-db970f4ed540)
 
 
 # Configuration Steps
