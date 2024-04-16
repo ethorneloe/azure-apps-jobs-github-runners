@@ -1,8 +1,8 @@
 # Overview
 This repository provides a step-by-step guide on configuring KEDA-scaled self-hosted GitHub runners as Azure Container Apps Jobs, using GitHub App authentication.
 
-*Disclaimer: This repository provides guidance on using Azure CLI commands and GitHub configuration steps, which are owned and maintained by Microsoft and GitHub, respectively. The content here is offered "as is" with no warranties, and confers no rights. It is intended as a guide only, and users are responsible for validating and testing all commands according to their specific requirements. The author is not liable for any damages arising from the use of this repository.*
 
+*Disclaimer: This repository provides guidance on using Azure CLI commands and GitHub configuration steps, which are owned and maintained by Microsoft and GitHub, respectively. The content here is offered "as is" with no warranties, and confers no rights. It is intended as a guide only, and users are responsible for validating and testing all commands according to their specific requirements. The author is not liable for any damages arising from the use of this repository.*
 
 # Goals
 - To provide easy-to-follow configuration steps suitable for learning and experimentation using Azure CLI.
@@ -22,8 +22,8 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 - **Auto-Scaling** - The KEDA scaler takes care of spinning up a new container whenever new jobs are queued.  Each job runs in its own container for parallel execution.
 
 # Architecture
+![architecture](https://github.com/ethorneloe/caj-runners-test/assets/129253602/7c28633f-8eff-4571-88ec-7dafd418193c)
 
-![keda-scaled-runners drawio (5)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/552ce46e-6816-4755-a724-8cf16e21eb65)
 
 # Configuration Steps
 
@@ -35,8 +35,8 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 3. Give your app a name such as `Azure KEDA Scaled Runners`.  
    The website field isn't important to get the GitHub App working, it is just there to provide an option for supplying more information about your GitHub App.  You can just use `https://github.com` but another website might be more appropriate for your use case.
 4. This GitHub App doesn't need a webhook, so that can be left unticked.
-5. For the permissions, we will need the following depending on runner scope:
-    - **Repo Scope**
+5. Configure the following permissions depending on the scope of your runner:  
+   - **Repo Scope**
        
         - *Repository Permissions*
 
@@ -56,19 +56,18 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
           - `Administration` - `Read-only`
           - `Self-hosted runners` - `Read and write`
 
-    *Note: Later on, in the container apps job settings, the KEDA scaler can be configured for repo or org scope. This guide currently is designed for repo scope.*
-7. Finally, select `Only on this account` and then click on `Create GitHub App`.
-8. After the app is created, there should be a notification to create a new private key at the top of the screen. Click that link and select `Generate a private key`. If there was no notification, simply scroll down the page to the private keys section.  The private key will automatically download into your browser's downloads directory.  Move that to somewhere safe and take note of the filepath, which we will use later with the Azure apps job.
-9. At the top of the GitHub App config page, there will be an App ID.  Take note of this as it will be used later for the Azure apps job.
-10. Now that the GitHub app is created, we must install it to an account and select the repos it will be available to.  Click on `Install App` at the left-side of the GitHub App settings page, select the account to install the app on, and click on `Install`.  
-*Note - Depending on your context you will be choosing a personal account or a GitHub Organization. Also note that if your app is private and you created your GitHub app with an organization context, and you want to do this in multiple orgs under the same Enterprise then you will need to create and deploy the app in each org in your GitHub Enterprise instance.*
-11. Now select the repos you want this app to work with.  As a minimum, select the repo you created earlier from this template repo and click on `Install`.
-12. You will now see the config page representing the installation of the app.  The URL should look similar to this:
+6. Finally, select `Only on this account` and then click on `Create GitHub App`.
+7. After the app is created, there should be a notification to create a new private key at the top of the screen. Click that link and select `Generate a private key`. If there was no notification, simply scroll down the page to the private keys section.  The private key will automatically download into your browser's downloads directory.  Move that to somewhere safe and take note of the filepath, which we will use later with the Azure apps job.
+8. At the top of the GitHub App config page, there will be an App ID.  Take note of this as it will be used later for the Azure apps job.
+9. Now that the GitHub app is created, we must install it to an account and select the repos it will be available to.  Click on `Install App` at the left-side of the GitHub App settings page, select the account to install the app on, and click on `Install`.  
+*Note - Depending on your context you will be choosing a personal account or a GitHub Organization. Also note that the app created for these steps is a private app.  If you want to use the same private app across multiple orgs in your GitHub Enterprise instance then you'll have to create the app in each org.*
+10. Now select the repos you want this app to work with.  As a minimum, select the repo you created earlier from this template repo and click on `Install`.
+11. You will now see the config page representing the installation of the app.  The URL should look similar to this:
     ```
     https://github.com/settings/installations/12345678
     ```  
     Take note of the last 8 digits of this URL as that is the `InstallationID` of the app we will use later on for configuring the Azure apps job
-13. If all has gone well, you should have a new GitHub App installed to your account(*personal or org based on your choice*), and you should have:
+12. If all has gone well, you should have a new GitHub App installed to your account(*personal or org based on your choice*), and you should have:
   - An `App ID`
   - An `Installation ID`
   - A filepath to the GitHub App private key saved earlier on.
@@ -113,16 +112,19 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    <br />
 1. Place `Dockerfile` and `entrypoint.sh`(included in this repo, or use your own) together into a local folder. If using `Windows`, make sure the `entrypoint.sh` file is using `Linux` line-endings.  Fill in values for the variables below and execute.
+
+   *Note - Fill in REPO_NAME or ORG_NAME depending on the scope you are registering the runners to.  If you need repo scope within an org context then `REPO_OWNER` is the GitHub Organization name*
     
    PowerShell
    ```powershell
-   $DOCKERFILE_PATH='<Local path that contains your Dockerfile(just the containing folder without the filename)>'
-   $GITHUB_APP_ID='<Your GitHub App ID from earlier in this guide>'
-   $GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
-   $LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide(full path including filename)>'
-   $LOCATION='<Your Preferred Azure Location>'
-   $REPO_OWNER='<Your GitHub Account Name>'
-   $REPO_NAME='<Your repo name>'
+   $DOCKERFILE_PATH = '<Local path that contains your Dockerfile(just the containing folder without the filename)>'
+   $GITHUB_APP_ID = '<Your GitHub App ID from earlier in this guide>'
+   $GITHUB_INSTALLATION_ID = '<Your GitHub Installation ID from earlier in this guide>'
+   $LOCAL_PEM_FILE_PATH = '<Path to your .pem file from earlier in this guide(full path including filename)>'
+   $LOCATION = '<Your Preferred Azure Location>'
+   $REPO_OWNER = '<Your GitHub Account Name or Org Name> - Repo runner scope'
+   $REPO_NAME = '<Your GitHub Repo Name> - Repo runner scope'
+   $ORG_NAME = '<Your GiHub Organization Name> - Org runner scope'
    ```
    
    Bash
@@ -132,8 +134,81 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    GITHUB_INSTALLATION_ID='<Your GitHub Installation ID from earlier in this guide>'
    LOCAL_PEM_FILE_PATH='<Path to your .pem file from earlier in this guide(full path including filename)>'
    LOCATION='<Your Preferred Azure Location>'
-   REPO_OWNER='<Your GitHub Account Name>'
-   REPO_NAME='<Your repo name>'
+   REPO_OWNER='<Your GitHub Account Name or Org Name> - Repo runner scope'
+   REPO_NAME='<Your GitHub Repo Name> - Repo runner scope'
+   ORG_NAME='<Your GiHub Organization Name> - Org runner scope'
+   ```
+   
+   <br />
+1. Set the runner registration URL depending on your runner scope.
+
+   <br />
+   PowerShell
+   
+   *Repo Scope*
+       
+   ```powershell
+   $RUNNER_REGISTRATION_URL = "https://github.com/$REPO_OWNER/$REPO_NAME"
+   ```
+   *Org Scope*
+       
+   ```powershell
+   $RUNNER_REGISTRATION_URL = "https://github.com/$ORG_NAME"
+   ```
+   <br />
+   Bash
+   
+   *Repo Scope*
+       
+   ```Bash
+   RUNNER_REGISTRATION_URL="https://github.com/$REPO_OWNER/$REPO_NAME"
+   ```
+   *Org Scope*
+       
+   ```Bash
+   RUNNER_REGISTRATION_URL="https://github.com/$ORG_NAME"
+   ```
+   
+   <br />
+1. Set the registration token API URL depending on your required runner scope.
+
+   <br />
+   PowerShell
+   
+   *Repo Scope*
+       
+   ```powershell
+   $REGISTRATION_TOKEN_API_URL = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token"
+   ```
+   *Org Scope*
+       
+   ```powershell
+   $REGISTRATION_TOKEN_API_URL = "https://api.github.com/orgs/$ORG_NAME/actions/runners/registration-token"
+   ```
+   <br />
+   Bash
+   
+   *Repo Scope*
+       
+   ```Bash
+   REGISTRATION_TOKEN_API_URL="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token"
+   ```
+   *Org Scope*
+       
+   ```Bash
+   REGISTRATION_TOKEN_API_URL="https://api.github.com/orgs/$ORG_NAME/actions/runners/registration-token"
+   ```
+   
+   <br />
+1. Set the access token URL.
+
+   PowerShell
+   ```powershell
+   $ACCESS_TOKEN_API_URL = "https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens"
+   ```
+   Bash
+   ```bash
+   ACCESS_TOKEN_API_URL="https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens"
    ```
    <br />
 1. Execute this as is, or feel free to change the naming convention as required.
@@ -205,8 +280,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    UPN=$(az account show --query user.name -o tsv)
    USER_ID=$(az ad user show --id "$UPN" --query id -o tsv)
    ```
-   <br />
 
+   <br />
 1. Create a role assignment for your account on the key vault to enable administration.
 
    PowerShell
@@ -484,6 +559,60 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --only-show-errors
    ```
    <br />
+
+1. Configure scale rule metadata string.
+   
+   PowerShell
+   
+   *Repo Scope*
+       
+   ```powershell
+   $METADATA = @(
+     "applicationID=$env:GITHUB_APP_ID",
+     "installationID=$env:GITHUB_INSTALLATION_ID",
+     "owner=$REPO_OWNER",
+     "runnerScope=repo",
+     "repos=$REPO_NAME"
+   )
+   ```
+   *Org Scope*
+       
+   ```powershell
+   $METADATA = @(
+     "applicationID=$GITHUB_APP_ID",
+     "installationID=$GITHUB_INSTALLATION_ID",
+     "owner=$ORG_NAME",
+     "runnerScope=org"
+   )
+
+   ```
+   <br />
+   Bash
+   
+   *Repo Scope*
+       
+   ```Bash
+   METADATA=(
+     "applicationID=$GITHUB_APP_ID"
+     "installationID=$GITHUB_INSTALLATION_ID"
+     "owner=$REPO_OWNER"
+     "runnerScope=repo"
+     "repos=$REPO_NAME"
+   )
+   ```
+   *Org Scope*
+       
+   ```Bash
+   METADATA=(
+     "applicationID=$GITHUB_APP_ID"
+     "installationID=$GITHUB_INSTALLATION_ID"
+     "owner=$ORG_NAME"
+     "runnerScope=org"
+   )
+
+   ```
+   <br />
+
 1. Create the `caj`.  
    *Note that the `--mi-user-assigned` option is not needed when `--registry-identity` is the same identity, and there will be a warning about how the `uami` is already added if you supply both.*
    
@@ -505,12 +634,12 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --registry-identity $UAMI_RESOURCE_ID `
      --scale-rule-name "github-runner" `
      --scale-rule-type "github-runner" `
-     --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" `
+     --scale-rule-metadata $METADATA `
      --scale-rule-auth "appKey=pem" `
      --cpu "2.0" `
      --memory "4Gi" `
      --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" `
-     --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" `
+     --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "RUNNER_REGISTRATION_URL=$RUNNER_REGISTRATION_URL" "ACCESS_TOKEN_API_URL=$ACCESS_TOKEN_API_URL" "REGISTRATION_TOKEN_API_URL=$REGISTRATION_TOKEN_API_URL" `
      --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" `
      --output none
    ```
@@ -533,12 +662,12 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --registry-identity $UAMI_RESOURCE_ID \
      --scale-rule-name "github-runner" \
      --scale-rule-type "github-runner" \
-     --scale-rule-metadata "applicationID=$GITHUB_APP_ID" "installationID=$GITHUB_INSTALLATION_ID" "owner=$REPO_OWNER" "runnerScope=repo" "repos=$REPO_NAME" \
+     --scale-rule-metadata "${METADATA[@]}" \
      --scale-rule-auth "appKey=pem" \
      --cpu "2.0" \
      --memory "4Gi" \
      --secrets "pem=keyvaultref:$KEYVAULT_SECRET_URI,identityref:$UAMI_RESOURCE_ID" \
-     --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "REPO_URL=https://github.com/$REPO_OWNER/$REPO_NAME" "ACCESS_TOKEN_API_URL=https://api.github.com/app/installations/$GITHUB_INSTALLATION_ID/access_tokens" "REGISTRATION_TOKEN_API_URL=https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/runners/registration-token" \
+     --env-vars "PEM=secretref:pem" "APP_ID=$GITHUB_APP_ID" "RUNNER_REGISTRATION_URL=$RUNNER_REGISTRATION_URL" "ACCESS_TOKEN_API_URL=$ACCESS_TOKEN_API_URL" "REGISTRATION_TOKEN_API_URL=$REGISTRATION_TOKEN_API_URL" \
      --registry-server "$CONTAINER_REGISTRY_NAME.azurecr.io" \
      --output none
    ```
@@ -561,7 +690,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    Ephemeral Self-Hosted Runners for Each Job  
    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/46b06dd2-ce90-424f-806d-b314fb880bf9)  
 
-   Azure Container Apps Job Execution History  
+   Azure Container Apps job Execution History  
    ![image](https://github.com/ethorneloe/azure-apps-jobs-github-runners/assets/129253602/8f70b28d-92ad-400a-860c-128cc7b20662)
 
 
