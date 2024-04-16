@@ -44,4 +44,4 @@ registration_token=$(curl -X POST -fsSL \
 
 # Register the ephemeral runner to run the job (--ephemeral ensures deregistration post job execution)
 # Use --disableupdate if you need to use the specific runner version contained in the docker image
-./config.sh --url $REPO_URL --token $registration_token --unattended --ephemeral && ./run.sh
+./config.sh --url $RUNNER_REGISTRATION_URL --token $registration_token --unattended --ephemeral && ./run.sh
