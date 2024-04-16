@@ -568,8 +568,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
        
    ```powershell
    $METADATA = @(
-     "applicationID=$env:GITHUB_APP_ID",
-     "installationID=$env:GITHUB_INSTALLATION_ID",
+     "applicationID=$GITHUB_APP_ID",
+     "installationID=$GITHUB_INSTALLATION_ID",
      "owner=$REPO_OWNER",
      "runnerScope=repo",
      "repos=$REPO_NAME"
