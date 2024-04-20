@@ -270,15 +270,8 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    <br />
 1. Get your Azure user account ID.
    
-   PowerShell
-   ```powershell
-   $UPN = az account show --query user.name -o tsv
-   $USER_ID = az ad user show --id "$UPN" --query id -o tsv
    ```
-   Bash
-   ```bash
-   UPN=$(az account show --query user.name -o tsv)
-   USER_ID=$(az ad user show --id "$UPN" --query id -o tsv)
+   $USER_ID = az ad signed-in-user show --query id -o tsv
    ```
 
    <br />
