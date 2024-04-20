@@ -10,7 +10,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 - IaC based deployment options might be added later on, however, there is already a repo providing a more automated approach [here](https://github.com/xmi-cs/aca-gh-actions-runner)
 
 # Prerequisites
-- An Azure subscription with priviledged access.
+- An Azure subscription with privileged access.
 - A GitHub account.
 - Familiarity with Azure resource deployment and GitHub repo configuration.
 - A workstation with Azure CLI installed
