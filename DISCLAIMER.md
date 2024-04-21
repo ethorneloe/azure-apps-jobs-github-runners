@@ -6,7 +6,7 @@ By engaging with, downloading, or utilizing the tutorials, code snippets, docume
 
 ## Purpose and Usage
 
-This Content is solely intended for educational, informational, and general reference purposes. It is not suited for making business, investment, or legal decisions. Efforts are made to ensure the Content remains current and accurate, yet no guarantee is made concerning its completeness, accuracy, reliability, appropriateness, or availability.
+This Content is solely intended for educational, informational, and general reference purposes. It is not suited for making business, investment, or legal decisions. Efforts are made to ensure the Content remains current and accurate, yet no guarantee is made concerning its completeness, accuracy, reliability, appropriateness, or availability. Users are responsible for validating and testing all technical implementation steps based on their own requirements.
 
 ## Expressions and Opinions
 
