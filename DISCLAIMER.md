@@ -1,22 +1,45 @@
-# Global Disclaimer
+# Disclaimer
 
-## Ownership and Maintenance
-This repository provides guidance on using Azure CLI commands and GitHub configuration steps. Azure CLI is owned and maintained by Microsoft Corporation, and the GitHub configuration steps are owned and managed by GitHub, Inc. All trademarks, registered marks, and logos used herein are the property of their respective owners.
+## Acknowledgment and Agreement
 
-## No Warranties
-This content is provided "as is" and "as available" without any warranties of any kind, either express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement. No warranties or representations are made regarding the accuracy, reliability, completeness, or timeliness of the materials, texts, graphics, and links.
+By engaging with, downloading, or utilizing the tutorials, code snippets, documents, videos, and any other types of content ("Content") provided by the author of this repository on various platforms including, but not limited to, GitHub, LinkedIn, and additional social media or websites, you ("User") confirm that you have read, understood, and agreed to adhere to the terms specified in this disclaimer. Interaction with this content signifies your active consent to these terms, including any subsequent updates or modifications.
 
-## Guidance Only
-The information presented here is intended solely as a general educational guide and does not confer any rights. It is not intended as a substitute for professional advice or service. Users are responsible for validating and testing all commands according to their specific requirements in their local environment.
+## Purpose and Usage
 
-## Limitation of Liability
-In no event shall the author, contributors, or copyright holders be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this repository, even if advised of the possibility of such damage.
+This Content is solely intended for educational, informational, and general reference purposes. It is not suited for making business, investment, or legal decisions. Efforts are made to ensure the Content remains current and accurate, yet no guarantee is made concerning its completeness, accuracy, reliability, appropriateness, or availability.
 
-## Accuracy and Timeliness
-Information provided is believed to be accurate as of the date of publication and is subject to change without notice. Users are encouraged to verify the applicability and accuracy of what they find here as software commands and usage guidelines can evolve.
+## Expressions and Opinions
 
-## Non-Endorsement
-This repository is independent and not endorsed by, directly affiliated with, authorized, or sponsored by Microsoft Corporation, GitHub, Inc., or any of their affiliates or subsidiaries. All company, product, and service names used in this repository are for identification purposes only.
+The opinions and expressions within this content are solely those of the repository's author and do not necessarily represent the views, policies, or positions of any other entity, organization, employer, or company. Note that these opinions are subject to change and reevaluation at any time.
 
-## Applicable Laws
-The use of this repository and any disputes arising out of such use are subject to the local laws of the user's country of residence. Users are responsible for compliance with any local laws applicable to their use of the repository.
+## Responsibility for Misuse
+
+Users assume full responsibility for any misuse or illegal application of the Content. The author disclaims all responsibility for any resultant harm, loss, or damage. This includes, but is not limited to, illegal activities, loss of data, or any negative consequences. You acknowledge that laws regarding hacking and cybersecurity differ across jurisdictions, and by using this Content, you agree to be solely responsible for your actions.
+
+## Third-Party Materials and Intellectual Rights
+
+Portions of the Content may feature or link to third-party resources. Users must adhere to all applicable laws regarding intellectual property rights, including those related to copyrights and trademarks, when engaging with such Content. Logos and other trademarks used in diagrams or other materials within this Content are the property of their respective trademark holders. The inclusion of any logos in this Content does not constitute an endorsement by, nor does it suggest any affiliation with, the repository or its author.
+
+## on-Endorsement
+
+The use of third-party logos in this Content does not imply any association with, or endorsement by, the companies that own these trademarks. Acknowledgment of all trademarks within this repository is solely for informational and educational purposes.
+
+## Liability Limitations
+
+The methods and tools discussed may involve risks, such as data loss, system or network breaches, and potential legal issues. Unless forbidden by law, the repository's author will not be liable for any indirect or direct damages arising from your use or inability to use the Content, which includes, but is not limited to, business interruptions, lost profits, or other consequential losses.
+
+## Indemnity
+
+By using this Content, you agree to indemnify and absolve the author of this repository and any associated parties from any claims, damages, or costs arising from your use or misuse of the Content.
+
+## User Interactions and Content
+
+The author monitors comments and reserves the right to delete any that are offensive, slanderous, obscene, or otherwise inappropriate. Users are fully responsible for their comment content.
+
+## Security and Integrity
+
+Although security measures are in place, the author cannot guarantee that all platforms are entirely secure and free from viruses. The author is not liable for any damages or losses resulting from security breaches or viruses.
+
+## Changes to Disclaimer
+
+The author may modify or update this disclaimer at any time without prior notification. Continued engagement with the Content after such changes assumes your acceptance of the new terms.
