@@ -28,7 +28,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 # Configuration Steps
 
 ## GitHub 
-1. Create a copy of this repo, using the button below.  When the repo creation page comes up, set the scope of the repo to `private`.
+1. Feel free to make a copy of this repo using the button below.  When the repo creation page comes up, set the scope of the repo to `private`.
 [![Create a Copy](https://img.shields.io/badge/-Create%20a%20Copy-darkgreen)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/generate)
 2. Click on your GitHub profile icon at the top right, and go to `Settings -> Developer Settings -> GitHub Apps` and select `New GitHub App`  
    *If you want this app to be available in your GitHub Organization, then you need to navigate to the settings for your GitHub Org, and then perform the remaining steps below from the org-based developer settings, rather than your personal developer settings.*
