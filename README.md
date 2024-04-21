@@ -559,7 +559,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    <br />
 
-1. Configure scale rule metadata string.
+1. Configure scale rule metadata.
    
    PowerShell
    
