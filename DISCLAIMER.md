@@ -1,7 +1,7 @@
 # Global Disclaimer
 
 ## Ownership and Maintenance
-This repository provides guidance on using Azure CLI commands and GitHub configuration steps. Azure CLI is owned and maintained by Microsoft Corporation, and GitHub configuration is managed by GitHub, Inc. All trademarks, registered marks, and logos used herein are the property of their respective owners.
+This repository provides guidance on using Azure CLI commands and GitHub configuration steps. Azure CLI is owned and maintained by Microsoft Corporation, and the GitHub configuration steps are owned and managed by GitHub, Inc. All trademarks, registered marks, and logos used herein are the property of their respective owners.
 
 ## No Warranties
 This content is provided "as is" and "as available" without any warranties of any kind, either express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement. No warranties or representations are made regarding the accuracy, reliability, completeness, or timeliness of the materials, texts, graphics, and links.
