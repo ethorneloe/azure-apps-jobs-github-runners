@@ -20,7 +20,7 @@ Users assume full responsibility for any misuse or illegal application of the Co
 
 Portions of the Content may feature or link to third-party resources. Users must adhere to all applicable laws regarding intellectual property rights, including those related to copyrights and trademarks, when engaging with such Content. Logos and other trademarks used in diagrams or other materials within this Content are the property of their respective trademark holders. The inclusion of any logos in this Content does not constitute an endorsement by, nor does it suggest any affiliation with, the repository or its author.
 
-## on-Endorsement
+## Non-Endorsement
 
 The use of third-party logos in this Content does not imply any association with, or endorsement by, the companies that own these trademarks. Acknowledgment of all trademarks within this repository is solely for informational and educational purposes.
 
