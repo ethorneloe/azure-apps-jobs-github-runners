@@ -31,7 +31,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 1. Create a copy of this repo, using the button below.  When the repo creation page comes up, set the scope of the repo to `private`.
 [![Create a Copy](https://img.shields.io/badge/-Create%20a%20Copy-darkgreen)](https://github.com/ethorneloe/azure-apps-jobs-github-runners/generate)
 2. Click on your GitHub profile icon at the top right, and go to `Settings -> Developer Settings -> GitHub Apps` and select `New GitHub App`  
-   *Note - If you want this app to be available in your GitHub Organization, then you need to navigate to the settings for your GitHub Org, and then perform the remaining steps below from the org-based developer settings, rather than your personal developer settings.*
+   *If you want this app to be available in your GitHub Organization, then you need to navigate to the settings for your GitHub Org, and then perform the remaining steps below from the org-based developer settings, rather than your personal developer settings.*
 3. Give your app a name such as `Azure KEDA Scaled Runners`.  
    The website field isn't important to get the GitHub App working, it is just there to provide an option for supplying more information about your GitHub App.  You can just use `https://github.com` but another website might be more appropriate for your use case.
 4. This GitHub App doesn't need a webhook, so that can be left unticked.
@@ -60,7 +60,7 @@ This repository provides a step-by-step guide on configuring KEDA-scaled self-ho
 7. After the app is created, there should be a notification to create a new private key at the top of the screen. Click that link and select `Generate a private key`. If there was no notification, simply scroll down the page to the private keys section.  The private key will automatically download into your browser's downloads directory.  Move that to somewhere safe and take note of the filepath, which we will use later with the Azure apps job.
 8. At the top of the GitHub App config page, there will be an App ID.  Take note of this as it will be used later for the Azure apps job.
 9. Now that the GitHub app is created, we must install it to an account and select the repos it will be available to.  Click on `Install App` at the left-side of the GitHub App settings page, select the account to install the app on, and click on `Install`.  
-*Note - Depending on your context you will be choosing a personal account or a GitHub Organization. Also note that the app created for these steps is a private app.  If you want to use the same private app across multiple orgs in your GitHub Enterprise instance then you'll have to create the app in each org.*
+*Depending on your context you will be choosing a personal account or a GitHub Organization. Also note that the app created for these steps is a private app.  If you want to use the same private app across multiple orgs in your GitHub Enterprise instance then you'll have to create the app in each org.*
 10. Now select the repos you want this app to work with.  As a minimum, select the repo you created earlier from this template repo and click on `Install`.
 11. You will now see the config page representing the installation of the app.  The URL should look similar to this:
     ```
@@ -113,7 +113,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    <br />
 1. Place `Dockerfile` and `entrypoint.sh`(included in this repo, or use your own) together into a local folder. If using `Windows`, make sure the `entrypoint.sh` file is using `Linux` line-endings.  Fill in values for the variables below and execute.
 
-   *Note - Fill in REPO_NAME or ORG_NAME depending on the scope you are registering the runners to.  If you need repo scope within an org context then `REPO_OWNER` is the GitHub Organization name*
+   *Fill in REPO_NAME or ORG_NAME depending on the scope you are registering the runners to.  If you need repo scope within an org context then `REPO_OWNER` is the GitHub Organization name*
     
    PowerShell
    ```powershell
@@ -268,7 +268,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
      --output none
    ```
    <br />
-1. Get your Azure user account ID.
+1. Get your Azure user account ID and assign the value to `USER_ID`.
 
    PowerShell
    ```powershell
@@ -490,7 +490,7 @@ The docker file in this repo uses GitHub's runner image taken from `ghcr.io/acti
    ```
    <br />   
 1. Save the `law` ID into a variable.  
-   *Note - The ID we need here is the `customerId`*
+   *The ID we need here is the `customerId`*
    
    PowerShell
    ```powershell
